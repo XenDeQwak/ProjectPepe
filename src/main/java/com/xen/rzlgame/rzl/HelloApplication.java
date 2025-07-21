@@ -7,17 +7,17 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.xen.rzlgame.rzl.Factories.NPCFactory;
 import com.xen.rzlgame.rzl.Factories.PlayerFactory;
+import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerNPCCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.InputHandler;
 import com.xen.rzlgame.rzl.Handlers.InteractionHandler;
-import com.xen.rzlgame.rzl.Handlers.PhysicsHandler;
+import com.xen.rzlgame.rzl.Managers.SpawningManager;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class HelloApplication extends GameApplication {
 
     Entity player;
-    Entity npcJames;
-    Entity npcBrian;
+    Entity[] npcs;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -29,11 +29,13 @@ public class HelloApplication extends GameApplication {
     @Override
     protected void initGame() {
         initFactory();
-        player = spawn("player");
-        npcJames = spawn("James");
-        npcBrian = spawn("Brian");
 
-        PhysicsHandler ph = new PhysicsHandler(player);
+        SpawningManager spawn = new SpawningManager();
+        spawn.spawnAll();
+        player = spawn.getPlayer();
+        npcs = spawn.getAllNPCs();
+
+        PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler(player);
         ph.initPhysics(FXGL.getPhysicsWorld());
 
         new InputHandler(player).initInput(FXGL.getInput());
@@ -48,4 +50,6 @@ public class HelloApplication extends GameApplication {
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }

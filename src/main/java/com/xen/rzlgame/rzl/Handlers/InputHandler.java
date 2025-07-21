@@ -1,9 +1,11 @@
 package com.xen.rzlgame.rzl.Handlers;
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 
@@ -14,9 +16,11 @@ import java.util.Set;
 public class InputHandler {
 
     private final PhysicsComponent physics;
+    private final Entity player;
     private final Set<KeyCode> pressedKeys = EnumSet.noneOf(KeyCode.class);
 
     public InputHandler(Entity player) {
+        this.player = player;
         this.physics = player.getComponent(PhysicsComponent.class);
     }
 
@@ -43,6 +47,18 @@ public class InputHandler {
                 }
             }, key);
         });
+
+        input.addAction(new UserAction("Player Attack"){
+            @Override
+            protected void onActionBegin() {
+                player.getComponent(PlayerComponent.class).attack();
+            }
+
+            @Override
+            protected void onAction() {
+
+            }
+        }, KeyCode.X);
     }
 
     private void updateVelocity(Map<KeyCode, Point2D> moves) {

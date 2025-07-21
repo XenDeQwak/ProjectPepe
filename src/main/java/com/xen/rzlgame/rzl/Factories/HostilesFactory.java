@@ -7,6 +7,7 @@ import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
+import com.xen.rzlgame.rzl.Components.EnemyComponent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -25,7 +26,8 @@ public class HostilesFactory implements EntityFactory {
                 .type(EntityType.ENEMY)
                 .viewWithBBox(new Rectangle(25, 25, Color.RED))
                 .with(pc)
-                .with(new CollidableComponent(true))
+                .with(new EnemyComponent())
+                .collidable()
                 .buildAndAttach();
     }
 }

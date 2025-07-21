@@ -27,7 +27,7 @@ public class PlayerFactory implements EntityFactory {
                 .at(300, 300)
                 .with(pc)
                 .viewWithBBox(new Rectangle(25, 25, Color.BLUE))
-                .with(new CollidableComponent(true))
+                .collidable()
                 .with(new PlayerComponent())
                 .buildAndAttach();
     }

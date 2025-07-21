@@ -8,6 +8,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.xen.rzlgame.rzl.Factories.HostilesFactory;
 import com.xen.rzlgame.rzl.Factories.NPCFactory;
 import com.xen.rzlgame.rzl.Factories.PlayerFactory;
+import com.xen.rzlgame.rzl.Handlers.Collisions.AttackEnemyCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerNPCCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.InputHandler;
 import com.xen.rzlgame.rzl.Handlers.InteractionHandler;
@@ -39,11 +40,13 @@ public class HelloApplication extends GameApplication {
         npcs = spawn.getAllNPCs();
         enemy = spawn.getEnemy();
 
-        PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler(player);
-        ph.initPhysics(FXGL.getPhysicsWorld());
+        PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler();
+
+        FXGL.getPhysicsWorld().addCollisionHandler(ph);
+        FXGL.getPhysicsWorld().setGravity(0, 0);
 
         new InputHandler(player).initInput(FXGL.getInput());
-        new InteractionHandler(player, ph).initInput(FXGL.getInput());
+        new InteractionHandler(ph).initInput(FXGL.getInput());
     }
 
     private void initFactory() {

@@ -8,11 +8,9 @@ import javafx.scene.input.KeyCode;
 
 public class InteractionHandler {
 
-    private Entity player;
     private PlayerNPCCollisionHandler ph;
 
-    public InteractionHandler(Entity player, PlayerNPCCollisionHandler ph) {
-        this.player = player;
+    public InteractionHandler(PlayerNPCCollisionHandler ph) {
         this.ph = ph;
     }
 

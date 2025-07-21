@@ -1,34 +1,29 @@
 package com.xen.rzlgame.rzl.Handlers.Collisions;
 
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.PhysicsWorld;
 import com.xen.rzlgame.rzl.Components.NpcIdComponent;
 import com.xen.rzlgame.rzl.Factories.EntityType;
 
-public class PlayerNPCCollisionHandler {
+public class PlayerNPCCollisionHandler extends CollisionHandler {
 
-    private Entity player;
     private Entity currentNpc = null;
 
-    public PlayerNPCCollisionHandler(Entity player) {
-        this.player = player;
+    public PlayerNPCCollisionHandler() {
+        super(EntityType.PLAYER, EntityType.NPC);
     }
+        @Override
+        protected void onCollisionBegin(Entity player, Entity npc) {
+            currentNpc = npc;
+            System.out.println(currentNpc);
+        }
 
-    public void initPhysics(PhysicsWorld physicsWorld) {
-        physicsWorld.setGravity(0, 0);
-        physicsWorld.addCollisionHandler(new com.almasb.fxgl.physics.CollisionHandler(player.getType(), EntityType.NPC) {
-            @Override
-            protected void onCollisionBegin(Entity player, Entity npc) {
-                currentNpc = npc;
-            }
-
-            @Override
-            protected void onCollisionEnd(Entity player, Entity npc) {
-                if (currentNpc == npc)
-                    currentNpc = null;
-            }
-        });
-    }
+        @Override
+        protected void onCollisionEnd(Entity player, Entity npc) {
+            if (currentNpc == npc)
+                currentNpc = null;
+        }
 
     public String getCurrentNpc() {
         if (currentNpc == null) return "";

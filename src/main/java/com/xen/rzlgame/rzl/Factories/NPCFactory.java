@@ -26,7 +26,7 @@ public class NPCFactory implements EntityFactory {
                 .at(300, 305)
                 .with(pc)
                 .viewWithBBox(new Rectangle(25, 25, Color.GREEN))
-                .with(new CollidableComponent(true))
+                .collidable()
                 .with(new NpcIdComponent("JAMES"))
                 .buildAndAttach();
     }

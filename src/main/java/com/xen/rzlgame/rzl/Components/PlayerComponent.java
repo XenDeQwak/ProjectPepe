@@ -25,6 +25,18 @@ public class PlayerComponent extends Component {
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(0.5));
     }
 
+    public void onDeath() {
+        if (currentHealth <= 0) {
+            entity.removeFromWorld();
+            playerUi.healthBarGone();
+        }
+    }
+
+    @Override
+    public void onUpdate(double tpf) {
+        onDeath();
+    }
+
     public int getCurrentHealth() {
         return currentHealth;
     }

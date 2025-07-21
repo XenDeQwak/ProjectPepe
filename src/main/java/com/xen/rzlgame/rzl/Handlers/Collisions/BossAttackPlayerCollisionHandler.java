@@ -14,7 +14,6 @@ public class BossAttackPlayerCollisionHandler extends CollisionHandler {
 
     @Override
     protected void onCollisionBegin(Entity attack, Entity player) {
-        System.out.println("OWIE");
         player.getComponent(PlayerComponent.class).setCurrentHealth(
                 player
                         .getComponent(PlayerComponent.class)
@@ -23,9 +22,5 @@ public class BossAttackPlayerCollisionHandler extends CollisionHandler {
                         .getComponent(AttackComponent.class)
                         .getBossDamage()
         );
-        if (player.getComponent(PlayerComponent.class).getCurrentHealth() <= 0) {
-            player.removeFromWorld();
-            player.getComponent(PlayerComponent.class).getPlayerUi().healthBarGone();
-        }
     }
 }

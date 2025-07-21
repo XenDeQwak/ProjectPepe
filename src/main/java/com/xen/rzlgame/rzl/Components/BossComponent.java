@@ -12,6 +12,7 @@ public class BossComponent extends Component {
     private int bossAtkX = -60;
     private int bossAtkY = -20;
     private int maxHealth = 100;
+    private int onTouchDmg = 30;
     private int currentHealth = maxHealth;
     private boolean canAttack = true;
     private BossUIComponents bossUI;
@@ -27,9 +28,17 @@ public class BossComponent extends Component {
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(2.5));
     }
 
+    public void onDeath() {
+        if (currentHealth <= 0) {
+            entity.removeFromWorld();
+            bossUI.healthBarGone();
+        }
+    }
+
     @Override
     public void onUpdate(double tpf) {
         bossAttack();
+        onDeath();
     }
 
     public void setBossUi(BossUIComponents ui) {
@@ -40,6 +49,7 @@ public class BossComponent extends Component {
         this.currentHealth = Math.max(0, currentHealth);
         bossUI.updateHealthBar();
     }
+
 
     public int getCurrentHealth() {
         return currentHealth;
@@ -59,6 +69,10 @@ public class BossComponent extends Component {
 
     public BossUIComponents getBossUI() {
         return bossUI;
+    }
+
+    public int getOnTouchDmg() {
+        return onTouchDmg;
     }
 }
 

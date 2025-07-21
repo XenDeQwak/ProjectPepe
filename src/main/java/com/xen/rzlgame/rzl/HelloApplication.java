@@ -11,6 +11,7 @@ import com.xen.rzlgame.rzl.Factories.HostilesFactory;
 import com.xen.rzlgame.rzl.Factories.NPCFactory;
 import com.xen.rzlgame.rzl.Factories.PlayerFactory;
 import com.xen.rzlgame.rzl.Handlers.Collisions.BossAttackPlayerCollisionHandler;
+import com.xen.rzlgame.rzl.Handlers.Collisions.BossPlayerCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerAttackBossCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerNPCCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.InputHandler;
@@ -60,6 +61,7 @@ public class HelloApplication extends GameApplication {
         FXGL.getPhysicsWorld().setGravity(0, 0);
         FXGL.getPhysicsWorld().addCollisionHandler(new PlayerAttackBossCollisionHandler());
         FXGL.getPhysicsWorld().addCollisionHandler(new BossAttackPlayerCollisionHandler());
+        FXGL.getPhysicsWorld().addCollisionHandler(new BossPlayerCollisionHandler());
     }
 
     private void uiSetup() {

@@ -22,9 +22,5 @@ public class PlayerAttackBossCollisionHandler extends CollisionHandler {
                         .getComponent(AttackComponent.class)
                         .getPlayerDamage()
         );
-        if (boss.getComponent(BossComponent.class).getCurrentHealth() <= 0){
-            boss.removeFromWorld();
-            boss.getComponent(BossComponent.class).getBossUI().healthBarGone();
-        }
     }
 }

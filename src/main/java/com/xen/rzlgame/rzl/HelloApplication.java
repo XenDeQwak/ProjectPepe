@@ -18,9 +18,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class HelloApplication extends GameApplication {
 
-    Entity player;
-    Entity[] npcs;
-    Entity enemy;
+    PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler();
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -31,19 +29,15 @@ public class HelloApplication extends GameApplication {
 
     @Override
     protected void initGame() {
+        Entity player;
         initFactory();
 
         SpawningManager spawn = new SpawningManager();
         spawn.spawnAll();
 
         player = spawn.getPlayer();
-        npcs = spawn.getAllNPCs();
-        enemy = spawn.getEnemy();
 
-        PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler();
-
-        FXGL.getPhysicsWorld().addCollisionHandler(ph);
-        FXGL.getPhysicsWorld().setGravity(0, 0);
+        initPhysicsWorld();
 
         new InputHandler(player).initInput(FXGL.getInput());
         new InteractionHandler(ph).initInput(FXGL.getInput());
@@ -53,6 +47,12 @@ public class HelloApplication extends GameApplication {
         getGameWorld().addEntityFactory(new PlayerFactory());
         getGameWorld().addEntityFactory(new NPCFactory());
         getGameWorld().addEntityFactory(new HostilesFactory());
+    }
+
+    private void initPhysicsWorld() {
+        FXGL.getPhysicsWorld().addCollisionHandler(ph);
+        FXGL.getPhysicsWorld().setGravity(0, 0);
+        FXGL.getPhysicsWorld().addCollisionHandler(new AttackEnemyCollisionHandler());
     }
 
     public static void main(String[] args) {

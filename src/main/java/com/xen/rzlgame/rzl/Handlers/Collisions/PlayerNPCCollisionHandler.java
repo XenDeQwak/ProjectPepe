@@ -13,17 +13,17 @@ public class PlayerNPCCollisionHandler extends CollisionHandler {
     public PlayerNPCCollisionHandler() {
         super(EntityType.PLAYER, EntityType.NPC);
     }
-        @Override
-        protected void onCollisionBegin(Entity player, Entity npc) {
-            currentNpc = npc;
-            System.out.println(currentNpc);
-        }
 
-        @Override
-        protected void onCollisionEnd(Entity player, Entity npc) {
-            if (currentNpc == npc)
-                currentNpc = null;
-        }
+    @Override
+    protected void onCollisionBegin(Entity player, Entity npc) {
+        currentNpc = npc;
+    }
+
+    @Override
+    protected void onCollisionEnd(Entity player, Entity npc) {
+        if (currentNpc == npc)
+            currentNpc = null;
+    }
 
     public String getCurrentNpc() {
         if (currentNpc == null) return "";

@@ -7,6 +7,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
+import com.xen.rzlgame.rzl.Components.AttackComponent;
 import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -36,7 +37,10 @@ public class PlayerFactory implements EntityFactory {
     public Entity newAttack(SpawnData data) {
 
         return entityBuilder(data)
+                .type(EntityType.ATTACK)
                 .viewWithBBox(new Rectangle(40, 10, Color.ORANGE))
+                .with(new AttackComponent())
+                .collidable()
                 .build();
 
     }

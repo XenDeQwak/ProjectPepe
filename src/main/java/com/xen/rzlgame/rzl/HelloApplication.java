@@ -1,23 +1,42 @@
 package com.xen.rzlgame.rzl;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import com.almasb.fxgl.app.ApplicationMode;
+import com.almasb.fxgl.app.GameApplication;
+import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
+import com.xen.rzlgame.rzl.Factories.NPCFactory;
+import com.xen.rzlgame.rzl.Factories.PlayerFactory;
 
-import java.io.IOException;
+import static com.almasb.fxgl.dsl.FXGL.*;
 
-public class HelloApplication extends Application {
+public class HelloApplication extends GameApplication {
+
+    Entity player;
+    Entity npcJames;
+
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+    protected void initSettings(GameSettings settings) {
+        settings.setWidth(800);
+        settings.setHeight(600);
+        settings.setApplicationMode(ApplicationMode.DEVELOPER);
+    }
+
+    @Override
+    protected void initGame() {
+        initFactory();
+        player = spawn("player");
+        npcJames = spawn("James");
+        new InputHandler(player).initInput(FXGL.getInput());
+        new PhysicsHandler(player, npcJames).initPhysics(FXGL.getPhysicsWorld());
+    }
+
+    private void initFactory() {
+        getGameWorld().addEntityFactory(new PlayerFactory());
+        getGameWorld().addEntityFactory(new NPCFactory());
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }

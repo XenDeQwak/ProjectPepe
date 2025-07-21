@@ -12,7 +12,7 @@ public class SpawningManager {
     private int atkHeight = 10;
     private static final String PLAYER = "player";
     private static final String NPC_JAMES = "James";
-    private static final String ENEMY = "Enemy";
+    private static final String BOSS = "Boss";
     private static final String NPC_BRIAN = "Brian";
 
     private Map<String, Entity> spawner = new HashMap<>();
@@ -20,7 +20,7 @@ public class SpawningManager {
     public void spawnAll() {
         spawner.put(PLAYER, FXGL.spawn(PLAYER));
         spawner.put(NPC_JAMES, FXGL.spawn(NPC_JAMES));
-        spawner.put(ENEMY, FXGL.spawn(ENEMY));
+        spawner.put(BOSS, FXGL.spawn(BOSS));
         spawner.put(NPC_BRIAN, FXGL.spawn(NPC_BRIAN));
     }
 
@@ -28,8 +28,8 @@ public class SpawningManager {
         return spawner.get(name);
     }
 
-    public Entity getEnemy() {
-        return get(ENEMY);
+    public Entity getBoss() {
+        return get(BOSS);
     }
 
     public int getAtkWidth() {

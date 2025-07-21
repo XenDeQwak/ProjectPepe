@@ -5,20 +5,27 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.xen.rzlgame.rzl.Components.BossComponent;
+import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import com.xen.rzlgame.rzl.Factories.HostilesFactory;
 import com.xen.rzlgame.rzl.Factories.NPCFactory;
 import com.xen.rzlgame.rzl.Factories.PlayerFactory;
-import com.xen.rzlgame.rzl.Handlers.Collisions.AttackEnemyCollisionHandler;
+import com.xen.rzlgame.rzl.Handlers.Collisions.BossAttackPlayerCollisionHandler;
+import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerAttackBossCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerNPCCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.InputHandler;
 import com.xen.rzlgame.rzl.Handlers.InteractionHandler;
 import com.xen.rzlgame.rzl.Managers.SpawningManager;
+import com.xen.rzlgame.rzl.UI.BossUIComponents;
+import com.xen.rzlgame.rzl.UI.PlayerUIComponents;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class HelloApplication extends GameApplication {
 
-    PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler();
+    private final PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler();
+    private Entity boss;
+    private Entity player;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -29,15 +36,14 @@ public class HelloApplication extends GameApplication {
 
     @Override
     protected void initGame() {
-        Entity player;
         initFactory();
 
         SpawningManager spawn = new SpawningManager();
         spawn.spawnAll();
-
         player = spawn.getPlayer();
-
+        boss = spawn.getBoss();
         initPhysicsWorld();
+        uiSetup();
 
         new InputHandler(player).initInput(FXGL.getInput());
         new InteractionHandler(ph).initInput(FXGL.getInput());
@@ -52,7 +58,19 @@ public class HelloApplication extends GameApplication {
     private void initPhysicsWorld() {
         FXGL.getPhysicsWorld().addCollisionHandler(ph);
         FXGL.getPhysicsWorld().setGravity(0, 0);
-        FXGL.getPhysicsWorld().addCollisionHandler(new AttackEnemyCollisionHandler());
+        FXGL.getPhysicsWorld().addCollisionHandler(new PlayerAttackBossCollisionHandler());
+        FXGL.getPhysicsWorld().addCollisionHandler(new BossAttackPlayerCollisionHandler());
+    }
+
+    private void uiSetup() {
+        BossComponent bc = boss.getComponent(BossComponent.class);
+        BossUIComponents bossUi = new BossUIComponents(bc);
+        bc.setBossUi(bossUi);
+
+        PlayerComponent pc = player.getComponent(PlayerComponent.class);
+        PlayerUIComponents playerUi = new PlayerUIComponents(pc);
+        pc.setPlayerUi(playerUi);
+
     }
 
     public static void main(String[] args) {

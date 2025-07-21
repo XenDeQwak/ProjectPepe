@@ -37,7 +37,7 @@ public class PlayerFactory implements EntityFactory {
     public Entity newAttack(SpawnData data) {
 
         return entityBuilder(data)
-                .type(EntityType.ATTACK)
+                .type(EntityType.PLAYER_ATTACK)
                 .viewWithBBox(new Rectangle(40, 10, Color.ORANGE))
                 .with(new AttackComponent())
                 .collidable()

@@ -1,4 +1,4 @@
-package com.xen.rzlgame.rzl;
+package com.xen.rzlgame.rzl.Handlers;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.Input;
@@ -13,12 +13,10 @@ import java.util.Set;
 
 public class InputHandler {
 
-    private final Entity player;
     private final PhysicsComponent physics;
     private final Set<KeyCode> pressedKeys = EnumSet.noneOf(KeyCode.class);
 
     public InputHandler(Entity player) {
-        this.player = player;
         this.physics = player.getComponent(PhysicsComponent.class);
     }
 
@@ -60,4 +58,6 @@ public class InputHandler {
         physics.setVelocityX(total.getX());
         physics.setVelocityY(total.getY());
     }
+
+
 }

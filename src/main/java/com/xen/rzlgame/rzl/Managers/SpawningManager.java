@@ -10,16 +10,26 @@ public class SpawningManager {
 
     private int atkWidth = 40;
     private int atkHeight = 10;
+    private static final String PLAYER = "player";
+    private static final String NPC_JAMES = "James";
+    private static final String ENEMY = "Enemy";
+    private static final String NPC_BRIAN = "Brian";
+
     private Map<String, Entity> spawner = new HashMap<>();
 
     public void spawnAll() {
-        spawner.put("player", FXGL.spawn("player"));
-        spawner.put("James", FXGL.spawn("James"));
-        spawner.put("Brian", FXGL.spawn("Brian"));
+        spawner.put(PLAYER, FXGL.spawn(PLAYER));
+        spawner.put(NPC_JAMES, FXGL.spawn(NPC_JAMES));
+        spawner.put(ENEMY, FXGL.spawn(ENEMY));
+        spawner.put(NPC_BRIAN, FXGL.spawn(NPC_BRIAN));
     }
 
     public Entity get(String name) {
         return spawner.get(name);
+    }
+
+    public Entity getEnemy() {
+        return get(ENEMY);
     }
 
     public int getAtkWidth() {
@@ -31,7 +41,7 @@ public class SpawningManager {
     }
 
     public Entity getPlayer() {
-        return get("player");
+        return get(PLAYER);
     }
 
     public String getAttack() {
@@ -40,8 +50,8 @@ public class SpawningManager {
 
     public Entity[] getAllNPCs() {
         return new Entity[] {
-                get("James"),
-                get("Brian")
+                get(NPC_JAMES),
+                get(NPC_BRIAN)
         };
     }
 }

@@ -35,7 +35,7 @@ public class InputHandler {
         moves.forEach((key, direction) -> {
             input.addAction(new UserAction("Move " + key) {
                 @Override
-                protected void onActionBegin() {
+                protected void onAction() {
                     pressedKeys.add(key);
                     updateVelocity(moves);
                 }
@@ -56,7 +56,6 @@ public class InputHandler {
 
             @Override
             protected void onAction() {
-
             }
         }, KeyCode.X);
     }

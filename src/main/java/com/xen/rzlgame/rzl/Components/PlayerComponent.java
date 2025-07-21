@@ -8,14 +8,17 @@ import javafx.util.Duration;
 
 public class PlayerComponent extends Component {
 
+    private boolean canAttack = true;
 
     public void attack() {
-        Entity atk = FXGL.spawn("attack", new SpawnData(
-                getEntity().getCenter().getX() + 20,
-                getEntity().getCenter().getY() + 5));
-        System.out.println(getEntity().getCenter());
+        if (!canAttack) return;
+        canAttack = false;
 
-        FXGL.runOnce(atk::removeFromWorld, Duration.seconds(0.1));
+        Entity atk = FXGL.spawn("attack");
+        atk.addComponent(new PlayerFollowComponent(getEntity()));
+
+        FXGL.runOnce(atk::removeFromWorld, Duration.seconds(0.3));
+        FXGL.runOnce(() -> canAttack = true, Duration.seconds(0.5));
     }
 
 

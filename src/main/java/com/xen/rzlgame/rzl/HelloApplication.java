@@ -5,6 +5,7 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.xen.rzlgame.rzl.Factories.HostilesFactory;
 import com.xen.rzlgame.rzl.Factories.NPCFactory;
 import com.xen.rzlgame.rzl.Factories.PlayerFactory;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerNPCCollisionHandler;
@@ -18,6 +19,7 @@ public class HelloApplication extends GameApplication {
 
     Entity player;
     Entity[] npcs;
+    Entity enemy;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -32,8 +34,10 @@ public class HelloApplication extends GameApplication {
 
         SpawningManager spawn = new SpawningManager();
         spawn.spawnAll();
+
         player = spawn.getPlayer();
         npcs = spawn.getAllNPCs();
+        enemy = spawn.getEnemy();
 
         PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler(player);
         ph.initPhysics(FXGL.getPhysicsWorld());
@@ -45,6 +49,7 @@ public class HelloApplication extends GameApplication {
     private void initFactory() {
         getGameWorld().addEntityFactory(new PlayerFactory());
         getGameWorld().addEntityFactory(new NPCFactory());
+        getGameWorld().addEntityFactory(new HostilesFactory());
     }
 
     public static void main(String[] args) {

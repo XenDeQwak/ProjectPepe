@@ -3,18 +3,22 @@ package com.xen.rzlgame.rzl.Components.FollowComponent;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.xen.rzlgame.rzl.Components.BossComponent;
+import com.xen.rzlgame.rzl.Components.PlayerComponent;
 
 public class BossFollowComponent extends Component {
-    private Entity boss;
-    private BossComponent bc;
+    private final Entity boss;
+    private final Entity player;
 
-    public BossFollowComponent(Entity boss) {
+    public BossFollowComponent(Entity boss, Entity player) {
         this.boss = boss;
-        bc = boss.getComponent(BossComponent.class);
+        this.player = player;
     }
 
     @Override
     public void onUpdate(double tpf) {
-        entity.setPosition(boss.getCenter().add(bc.getBossAtkX(), bc.getBossAtkY()));
+        if (player.getPosition().getX() > boss.getPosition().getX())
+            entity.setPosition(boss.getCenter().add(20, -3));
+        else
+            entity.setPosition(boss.getCenter().add(-60, -3));
     }
 }

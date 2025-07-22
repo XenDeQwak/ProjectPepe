@@ -3,6 +3,8 @@ package com.xen.rzlgame.rzl.Components;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
+import com.almasb.fxgl.physics.PhysicsComponent;
+import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.xen.rzlgame.rzl.Components.FollowComponent.PlayerFollowComponent;
 import com.xen.rzlgame.rzl.UI.PlayerUIComponents;
 import javafx.util.Duration;
@@ -16,12 +18,14 @@ public class PlayerComponent extends Component {
     private int currentHealth = maxHealth;
     private PlayerUIComponents playerUi;
 
+    private int facingX;
+
     public void attack() {
         if (!canAttack) return;
         canAttack = false;
 
         Entity atk = FXGL.spawn("attack");
-        atk.addComponent(new PlayerFollowComponent(getEntity()));
+        atk.addComponent(new PlayerFollowComponent(entity, facingX));
 
         FXGL.runOnce(atk::removeFromWorld, Duration.seconds(0.3));
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(0.5));
@@ -57,6 +61,15 @@ public class PlayerComponent extends Component {
         playerUi.updateHealthBar();
     }
 
+    public void roll() {
+
+    }
+
+    public void jump() {
+        if (entity.getComponent(PhysicsComponent.class).isOnGround())
+            entity.getComponent(PhysicsComponent.class).setVelocityY(-500);
+    }
+
     public boolean isCanParry() { return canParry;}
 
     public int getMaxHealth() {
@@ -69,5 +82,13 @@ public class PlayerComponent extends Component {
 
     public void setPlayerUi(PlayerUIComponents playerUi) {
         this.playerUi = playerUi;
+    }
+
+    public void setFacingX(int facingX) {
+        this.facingX = facingX;
+    };
+
+    public int getFacingX() {
+        return facingX;
     }
 }

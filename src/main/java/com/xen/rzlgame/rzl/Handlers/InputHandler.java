@@ -7,6 +7,7 @@ import com.almasb.fxgl.physics.PhysicsComponent;
 import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 
 import java.util.EnumSet;
@@ -18,7 +19,6 @@ public class InputHandler {
     private final PhysicsComponent physics;
     private final Entity player;
     private final Set<KeyCode> pressedKeys = EnumSet.noneOf(KeyCode.class);
-    private boolean isSpacing;
 
     public InputHandler(Entity player) {
         this.player = player;
@@ -27,8 +27,6 @@ public class InputHandler {
 
     public void initInput(Input input) {
         Map<KeyCode, Point2D> moves = Map.of(
-                KeyCode.W, new Point2D(0, -1),
-                KeyCode.S, new Point2D(0, 1),
                 KeyCode.A, new Point2D(-1, 0),
                 KeyCode.D, new Point2D(1, 0)
         );
@@ -63,15 +61,16 @@ public class InputHandler {
             }
         }, MouseButton.SECONDARY);
 
-        input.addAction(new UserAction("Sprint"){
-            @Override
-            protected void onAction() {
-                isSpacing = true;
+        input.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.SHIFT) {
+                player.getComponent(PlayerComponent.class).roll();
             }
+        });
 
+        input.addAction(new UserAction("Jump"){
             @Override
-            protected void onActionEnd() {
-                isSpacing = false;
+            protected void onActionBegin() {
+                player.getComponent(PlayerComponent.class).jump();
             }
         }, KeyCode.SPACE);
     }
@@ -82,14 +81,12 @@ public class InputHandler {
             total = total.add(moves.get(key));
         }
 
-        if (!total.equals(Point2D.ZERO) && isSpacing) {
-            total = total.normalize().multiply(500);
-        } else {
+        if (!total.equals(Point2D.ZERO)) {
             total = total.normalize().multiply(300);
+            player.getComponent(PlayerComponent.class).setFacingX((int)total.getX());
         }
 
         physics.setVelocityX(total.getX());
-        physics.setVelocityY(total.getY());
     }
 
 

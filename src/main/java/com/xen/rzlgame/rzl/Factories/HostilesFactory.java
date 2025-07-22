@@ -8,6 +8,8 @@ import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.pathfinding.CellMoveComponent;
 import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
+import com.almasb.fxgl.physics.BoundingShape;
+import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.xen.rzlgame.rzl.Components.AttackComponent;
@@ -22,19 +24,17 @@ public class HostilesFactory implements EntityFactory {
     @Spawns("Boss")
     public Entity newBoss(SpawnData data) {
 
-        var grid = new AStarGrid(800 / 40, 600 / 40);
         PhysicsComponent pc = new PhysicsComponent();
-        pc.setBodyType(BodyType.KINEMATIC);
+        pc.setBodyType(BodyType.DYNAMIC);
+        pc.addGroundSensor(new HitBox(BoundingShape.box(25, 25)));
 
 
         return entityBuilder()
-                .at(400, 100)
+                .at(500, 450)
                 .type(EntityType.BOSS)
                 .viewWithBBox(new Rectangle(25, 25, Color.RED))
                 .with(pc)
                 .with(new BossComponent())
-                .with(new CellMoveComponent(40, 40, 150))
-                .with(new AStarMoveComponent(grid))
                 .collidable()
                 .buildAndAttach();
     }

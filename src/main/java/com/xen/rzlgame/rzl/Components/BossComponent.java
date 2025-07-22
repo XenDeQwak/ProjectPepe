@@ -18,8 +18,6 @@ import java.util.List;
 
 public class BossComponent extends Component {
 
-    private int bossAtkX = -60;
-    private int bossAtkY = -20;
     private int maxHealth = 100;
     private int onTouchDmg = 30;
     private int currentHealth = maxHealth;
@@ -40,8 +38,7 @@ public class BossComponent extends Component {
         int index = FXGLMath.random(0, patterns.size() - 1);
         String chosen = patterns.get(index);
         Entity bossAtk = FXGL.spawn(chosen);
-        bossAtk.setPosition(entity.getCenter().add(bossAtkX, bossAtkY));
-        bossAtk.addComponent(new BossFollowComponent(entity));
+        bossAtk.addComponent(new BossFollowComponent(entity, player));
 
         FXGL.runOnce(bossAtk::removeFromWorld, Duration.seconds(0.3));
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(3));
@@ -59,18 +56,16 @@ public class BossComponent extends Component {
     public void onUpdate(double tpf) {
         bossAttack();
         onDeath();
-        aStar();
+        followPlayer();
     }
 
-    public void aStar() {
-        int playerCellX = (int)(player.getX() / 40);
-        int playerCellY = (int)(player.getY() / 40);
-
-        entity.getComponent(AStarMoveComponent.class).moveToCell(playerCellX, playerCellY);
-        Point2D dir = player.getPosition().subtract(entity.getPosition()).normalize();
-        entity.getComponent(PhysicsComponent.class).setLinearVelocity(dir.multiply(150));
-
+    public void followPlayer() {
+        double dx = player.getX() - entity.getX();
+        double vx = Math.signum(dx) * 150;
+        double vy = entity.getComponent(PhysicsComponent.class).getLinearVelocity().getY();
+        entity.getComponent(PhysicsComponent.class).setLinearVelocity(new Point2D(vx, vy));
     }
+
 
 
     public void setBossUi(BossUIComponents ui) {
@@ -89,14 +84,6 @@ public class BossComponent extends Component {
 
     public int getMaxHealth() {
         return maxHealth;
-    }
-
-    public int getBossAtkX() {
-        return bossAtkX;
-    }
-
-    public int getBossAtkY() {
-        return bossAtkY;
     }
 
     public BossUIComponents getBossUI() {

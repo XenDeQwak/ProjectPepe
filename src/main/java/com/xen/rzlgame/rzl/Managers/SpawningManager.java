@@ -14,14 +14,16 @@ public class SpawningManager {
     private static final String NPC_JAMES = "James";
     private static final String BOSS = "Boss";
     private static final String NPC_BRIAN = "Brian";
+    private static final String FLOOR = "floor";
 
     private Map<String, Entity> spawner = new HashMap<>();
 
     public void spawnAll() {
         spawner.put(PLAYER, FXGL.spawn(PLAYER));
-        spawner.put(NPC_JAMES, FXGL.spawn(NPC_JAMES));
+        //spawner.put(NPC_JAMES, FXGL.spawn(NPC_JAMES));
         spawner.put(BOSS, FXGL.spawn(BOSS));
-        spawner.put(NPC_BRIAN, FXGL.spawn(NPC_BRIAN));
+        //spawner.put(NPC_BRIAN, FXGL.spawn(NPC_BRIAN));
+        spawner.put(FLOOR, FXGL.spawn(FLOOR));
     }
 
     public Entity get(String name) {

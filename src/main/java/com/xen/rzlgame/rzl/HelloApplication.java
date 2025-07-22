@@ -5,11 +5,11 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.xen.rzlgame.rzl.Components.BossComponent;
 import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import com.xen.rzlgame.rzl.Factories.HostilesFactory;
 import com.xen.rzlgame.rzl.Factories.NPCFactory;
+import com.xen.rzlgame.rzl.Factories.ObjectFactory;
 import com.xen.rzlgame.rzl.Factories.PlayerFactory;
 import com.xen.rzlgame.rzl.Handlers.Collisions.BossAttackPlayerCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.Collisions.BossPlayerCollisionHandler;
@@ -56,11 +56,12 @@ public class HelloApplication extends GameApplication {
         getGameWorld().addEntityFactory(new PlayerFactory());
         getGameWorld().addEntityFactory(new NPCFactory());
         getGameWorld().addEntityFactory(new HostilesFactory());
+        getGameWorld().addEntityFactory(new ObjectFactory());
     }
 
     private void initPhysicsWorld() {
         FXGL.getPhysicsWorld().addCollisionHandler(ph);
-        FXGL.getPhysicsWorld().setGravity(0, 0);
+        FXGL.getPhysicsWorld().setGravity(0, 1200);
         FXGL.getPhysicsWorld().addCollisionHandler(new PlayerAttackBossCollisionHandler());
         FXGL.getPhysicsWorld().addCollisionHandler(new BossAttackPlayerCollisionHandler());
         FXGL.getPhysicsWorld().addCollisionHandler(new BossPlayerCollisionHandler());

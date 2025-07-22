@@ -1,11 +1,20 @@
 package com.xen.rzlgame.rzl.Components;
 
+import com.almasb.fxgl.core.collection.grid.Grid;
+import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
+import com.almasb.fxgl.pathfinding.astar.AStarCell;
+import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
+import com.almasb.fxgl.physics.PhysicsComponent;
 import com.xen.rzlgame.rzl.Components.FollowComponent.BossFollowComponent;
 import com.xen.rzlgame.rzl.UI.BossUIComponents;
+import javafx.geometry.Point2D;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BossComponent extends Component {
 
@@ -16,17 +25,28 @@ public class BossComponent extends Component {
     private int currentHealth = maxHealth;
     private boolean canAttack = true;
     private BossUIComponents bossUI;
+    private Entity player;
 
     public void bossAttack() {
-        if(!canAttack) return;
+        if (!canAttack) return;
         canAttack = false;
-        Entity bossAtk = FXGL.spawn("bossAttack");
+
+        List<String> patterns = List.of(
+                "bossAttackA",
+                "bossAttackB"
+                //"bossAttackC"
+        );
+
+        int index = FXGLMath.random(0, patterns.size() - 1);
+        String chosen = patterns.get(index);
+        Entity bossAtk = FXGL.spawn(chosen);
         bossAtk.setPosition(entity.getCenter().add(bossAtkX, bossAtkY));
         bossAtk.addComponent(new BossFollowComponent(entity));
 
         FXGL.runOnce(bossAtk::removeFromWorld, Duration.seconds(0.3));
-        FXGL.runOnce(() -> canAttack = true, Duration.seconds(2.5));
+        FXGL.runOnce(() -> canAttack = true, Duration.seconds(3));
     }
+
 
     public void onDeath() {
         if (currentHealth <= 0) {
@@ -39,7 +59,19 @@ public class BossComponent extends Component {
     public void onUpdate(double tpf) {
         bossAttack();
         onDeath();
+        aStar();
     }
+
+    public void aStar() {
+        int playerCellX = (int)(player.getX() / 40);
+        int playerCellY = (int)(player.getY() / 40);
+
+        entity.getComponent(AStarMoveComponent.class).moveToCell(playerCellX, playerCellY);
+        Point2D dir = player.getPosition().subtract(entity.getPosition()).normalize();
+        entity.getComponent(PhysicsComponent.class).setLinearVelocity(dir.multiply(150));
+
+    }
+
 
     public void setBossUi(BossUIComponents ui) {
         this.bossUI = ui;
@@ -71,8 +103,10 @@ public class BossComponent extends Component {
         return bossUI;
     }
 
-    public int getOnTouchDmg() {
-        return onTouchDmg;
+    public int getOnTouchDmg() { return onTouchDmg; }
+
+    public void setPlayer(Entity player) {
+        this.player = player;
     }
 }
 

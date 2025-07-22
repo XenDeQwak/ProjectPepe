@@ -5,6 +5,7 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 import com.xen.rzlgame.rzl.Components.BossComponent;
 import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import com.xen.rzlgame.rzl.Factories.HostilesFactory;
@@ -37,6 +38,7 @@ public class HelloApplication extends GameApplication {
 
     @Override
     protected void initGame() {
+
         initFactory();
 
         SpawningManager spawn = new SpawningManager();
@@ -44,7 +46,7 @@ public class HelloApplication extends GameApplication {
         player = spawn.getPlayer();
         boss = spawn.getBoss();
         initPhysicsWorld();
-        uiSetup();
+        passToComponent();
 
         new InputHandler(player).initInput(FXGL.getInput());
         new InteractionHandler(ph).initInput(FXGL.getInput());
@@ -64,15 +66,15 @@ public class HelloApplication extends GameApplication {
         FXGL.getPhysicsWorld().addCollisionHandler(new BossPlayerCollisionHandler());
     }
 
-    private void uiSetup() {
+    private void passToComponent() {
         BossComponent bc = boss.getComponent(BossComponent.class);
         BossUIComponents bossUi = new BossUIComponents(bc);
         bc.setBossUi(bossUi);
+        bc.setPlayer(player);
 
         PlayerComponent pc = player.getComponent(PlayerComponent.class);
         PlayerUIComponents playerUi = new PlayerUIComponents(pc);
         pc.setPlayerUi(playerUi);
-
     }
 
     public static void main(String[] args) {

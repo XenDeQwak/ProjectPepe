@@ -10,6 +10,8 @@ import javafx.util.Duration;
 public class PlayerComponent extends Component {
 
     private boolean canAttack = true;
+    private boolean canParry = false;
+    private boolean isGuarding = false;
     private int maxHealth = 100;
     private int currentHealth = maxHealth;
     private PlayerUIComponents playerUi;
@@ -23,6 +25,15 @@ public class PlayerComponent extends Component {
 
         FXGL.runOnce(atk::removeFromWorld, Duration.seconds(0.3));
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(0.5));
+    }
+
+    public void parryStance() {
+        canParry = true;
+        canAttack = false;
+        FXGL.runOnce(() -> {
+            canAttack = true;
+            canParry = false;
+        }, Duration.seconds(0.3));
     }
 
     public void onDeath() {
@@ -45,6 +56,8 @@ public class PlayerComponent extends Component {
         this.currentHealth = Math.max(0, currentHealth);
         playerUi.updateHealthBar();
     }
+
+    public boolean isCanParry() { return canParry;}
 
     public int getMaxHealth() {
         return maxHealth;

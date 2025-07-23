@@ -15,11 +15,14 @@ import com.xen.rzlgame.rzl.Handlers.Collisions.BossAttackPlayerCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.Collisions.BossPlayerCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerAttackBossCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerNPCCollisionHandler;
+import com.xen.rzlgame.rzl.Handlers.ComponentHandler;
 import com.xen.rzlgame.rzl.Handlers.InputHandler;
 import com.xen.rzlgame.rzl.Handlers.InteractionHandler;
 import com.xen.rzlgame.rzl.Managers.SpawningManager;
+import com.xen.rzlgame.rzl.Managers.WaveManager;
 import com.xen.rzlgame.rzl.UI.BossUIComponents;
 import com.xen.rzlgame.rzl.UI.PlayerUIComponents;
+import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
@@ -28,6 +31,7 @@ public class HelloApplication extends GameApplication {
     private final PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler();
     private Entity boss;
     private Entity player;
+    private WaveManager wave;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -38,44 +42,27 @@ public class HelloApplication extends GameApplication {
 
     @Override
     protected void initGame() {
-
-        initFactory();
-
+        ComponentHandler.initFactories(getGameWorld());
         SpawningManager spawn = new SpawningManager();
         spawn.spawnAll();
         player = spawn.getPlayer();
         boss = spawn.getBoss();
-        initPhysicsWorld();
-        passToComponent();
+        wave = new WaveManager(player);
+
+        ComponentHandler.initPhysicsWorld(getPhysicsWorld());
+        if (boss != null)
+            ComponentHandler.linkComponents(player, boss);
+
+        getGameScene().getViewport().setBounds(0, 0, 3200, 600);
+        getGameScene().getViewport().bindToEntity(player, 400, 300);
 
         new InputHandler(player).initInput(FXGL.getInput());
         new InteractionHandler(ph).initInput(FXGL.getInput());
     }
 
-    private void initFactory() {
-        getGameWorld().addEntityFactory(new PlayerFactory());
-        getGameWorld().addEntityFactory(new NPCFactory());
-        getGameWorld().addEntityFactory(new HostilesFactory());
-        getGameWorld().addEntityFactory(new ObjectFactory());
-    }
-
-    private void initPhysicsWorld() {
-        FXGL.getPhysicsWorld().addCollisionHandler(ph);
-        FXGL.getPhysicsWorld().setGravity(0, 1200);
-        FXGL.getPhysicsWorld().addCollisionHandler(new PlayerAttackBossCollisionHandler());
-        FXGL.getPhysicsWorld().addCollisionHandler(new BossAttackPlayerCollisionHandler());
-        FXGL.getPhysicsWorld().addCollisionHandler(new BossPlayerCollisionHandler());
-    }
-
-    private void passToComponent() {
-        BossComponent bc = boss.getComponent(BossComponent.class);
-        BossUIComponents bossUi = new BossUIComponents(bc);
-        bc.setBossUi(bossUi);
-        bc.setPlayer(player);
-
-        PlayerComponent pc = player.getComponent(PlayerComponent.class);
-        PlayerUIComponents playerUi = new PlayerUIComponents(pc);
-        pc.setPlayerUi(playerUi);
+    @Override
+    public void onUpdate(double tpf) {
+        wave.spawnMinion();
     }
 
     public static void main(String[] args) {

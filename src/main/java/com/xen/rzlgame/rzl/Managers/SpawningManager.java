@@ -21,7 +21,7 @@ public class SpawningManager {
     public void spawnAll() {
         spawner.put(PLAYER, FXGL.spawn(PLAYER));
         //spawner.put(NPC_JAMES, FXGL.spawn(NPC_JAMES));
-        spawner.put(BOSS, FXGL.spawn(BOSS));
+        //spawner.put(BOSS, FXGL.spawn(BOSS));
         //spawner.put(NPC_BRIAN, FXGL.spawn(NPC_BRIAN));
         spawner.put(FLOOR, FXGL.spawn(FLOOR));
     }

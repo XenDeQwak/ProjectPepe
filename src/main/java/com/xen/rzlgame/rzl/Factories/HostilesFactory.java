@@ -14,6 +14,7 @@ import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.xen.rzlgame.rzl.Components.AttackComponent;
 import com.xen.rzlgame.rzl.Components.BossComponent;
+import com.xen.rzlgame.rzl.Components.MinionComponent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -42,7 +43,7 @@ public class HostilesFactory implements EntityFactory {
     @Spawns("bossAttackA")
     public Entity newBossAttackA(SpawnData data) {
 
-        return FXGL.entityBuilder(data)
+        return entityBuilder(data)
                 .type(EntityType.BOSS_ATTACK)
                 .viewWithBBox(new Rectangle(40, 40, Color.ORANGE))
                 .with(new AttackComponent())
@@ -54,11 +55,27 @@ public class HostilesFactory implements EntityFactory {
     @Spawns("bossAttackB")
     public Entity newBossAttackB(SpawnData data) {
 
-        return FXGL.entityBuilder(data)
+        return entityBuilder(data)
                 .type(EntityType.BOSS_ATTACK)
                 .viewWithBBox(new Rectangle(80, 40, Color.ORANGE))
                 .with(new AttackComponent())
                 .collidable()
+                .build();
+
+    }
+
+    @Spawns("minion")
+    public Entity newMinion(SpawnData data) {
+        PhysicsComponent pc = new PhysicsComponent();
+        pc.setBodyType(BodyType.DYNAMIC);
+        pc.addGroundSensor(new HitBox(BoundingShape.box(25, 25)));
+
+        return entityBuilder()
+                .type(EntityType.ENEMY)
+                .at(200, 200)
+                .viewWithBBox(new Rectangle(25, 25, Color.RED))
+                .with(pc)
+                .with(new MinionComponent())
                 .build();
 
     }

@@ -14,4 +14,5 @@ module com.xen.rzlgame.rzl {
     opens com.xen.rzlgame.rzl.Handlers to javafx.fxml;
     exports com.xen.rzlgame.rzl.Handlers.Collisions;
     opens com.xen.rzlgame.rzl.Handlers.Collisions to javafx.fxml;
+    exports com.xen.rzlgame.rzl.Managers;
 }

@@ -1,9 +1,7 @@
-package com.xen.rzlgame.rzl.Components.FollowComponent;
+package com.xen.rzlgame.rzl.Components.AttackFollowComponent;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
-import com.xen.rzlgame.rzl.Components.BossComponent;
-import com.xen.rzlgame.rzl.Components.PlayerComponent;
 
 public class BossFollowComponent extends Component {
     private final Entity boss;

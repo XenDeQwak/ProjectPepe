@@ -26,7 +26,7 @@ public class ObjectFactory implements EntityFactory {
                 .with(new CollidableComponent(true))
                 .collidable()
                 .at(0, 500)
-                .viewWithBBox(new Rectangle(3600, 200, Color.GREEN))
+                .viewWithBBox(new Rectangle(2400, 200, Color.GREEN))
                 .buildAndAttach();
 
 

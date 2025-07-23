@@ -63,7 +63,7 @@ public class InputHandler {
 
         input.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
             if (e.getCode() == KeyCode.SHIFT) {
-                player.getComponent(PlayerComponent.class).roll();
+
             }
         });
 

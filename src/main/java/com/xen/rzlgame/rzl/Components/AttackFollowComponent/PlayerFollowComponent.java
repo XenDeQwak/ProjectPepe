@@ -1,4 +1,4 @@
-package com.xen.rzlgame.rzl.Components.FollowComponent;
+package com.xen.rzlgame.rzl.Components.AttackFollowComponent;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;

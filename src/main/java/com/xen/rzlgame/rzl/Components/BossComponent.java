@@ -1,19 +1,15 @@
 package com.xen.rzlgame.rzl.Components;
 
-import com.almasb.fxgl.core.collection.grid.Grid;
 import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
-import com.almasb.fxgl.pathfinding.astar.AStarCell;
-import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
 import com.almasb.fxgl.physics.PhysicsComponent;
-import com.xen.rzlgame.rzl.Components.FollowComponent.BossFollowComponent;
+import com.xen.rzlgame.rzl.Components.AttackFollowComponent.BossFollowComponent;
 import com.xen.rzlgame.rzl.UI.BossUIComponents;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BossComponent extends Component {
@@ -65,8 +61,6 @@ public class BossComponent extends Component {
         double vy = entity.getComponent(PhysicsComponent.class).getLinearVelocity().getY();
         entity.getComponent(PhysicsComponent.class).setLinearVelocity(new Point2D(vx, vy));
     }
-
-
 
     public void setBossUi(BossUIComponents ui) {
         this.bossUI = ui;

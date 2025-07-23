@@ -5,9 +5,6 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
-import com.almasb.fxgl.pathfinding.CellMoveComponent;
-import com.almasb.fxgl.pathfinding.astar.AStarGrid;
-import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
@@ -70,12 +67,12 @@ public class HostilesFactory implements EntityFactory {
         pc.setBodyType(BodyType.DYNAMIC);
         pc.addGroundSensor(new HitBox(BoundingShape.box(25, 25)));
 
-        return entityBuilder()
+        return entityBuilder(data)
                 .type(EntityType.ENEMY)
-                .at(200, 200)
                 .viewWithBBox(new Rectangle(25, 25, Color.RED))
                 .with(pc)
                 .with(new MinionComponent())
+                .collidable()
                 .build();
 
     }

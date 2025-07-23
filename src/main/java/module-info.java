@@ -1,18 +1,17 @@
-module com.xen.rzlgame.rzl {
+open module com.xen.rzlgame.rzl {
     requires javafx.controls;
     requires javafx.fxml;
-
+    requires javafx.graphics;
     requires com.almasb.fxgl.all;
-    requires java.desktop;
-    requires java.sql;
+    requires transitive com.almasb.fxgl.entity;
+    requires javafx.base;
+    requires com.almasb.fxgl.core;
+    requires com.almasb.fxgl.io;
+    requires javafx.media;
 
-    opens com.xen.rzlgame.rzl to javafx.fxml;
     exports com.xen.rzlgame.rzl;
     exports com.xen.rzlgame.rzl.Factories;
-    opens com.xen.rzlgame.rzl.Factories to javafx.fxml;
     exports com.xen.rzlgame.rzl.Handlers;
-    opens com.xen.rzlgame.rzl.Handlers to javafx.fxml;
     exports com.xen.rzlgame.rzl.Handlers.Collisions;
-    opens com.xen.rzlgame.rzl.Handlers.Collisions to javafx.fxml;
     exports com.xen.rzlgame.rzl.Managers;
 }

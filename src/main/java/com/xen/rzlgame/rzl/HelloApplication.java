@@ -36,10 +36,10 @@ public class HelloApplication extends GameApplication {
         spawn.spawnAll();
         player = spawn.getPlayer();
         boss = spawn.getBoss();
-        wave = new WaveManager(player);
-
+        //wave = new WaveManager(player);
 
         ComponentHandler.initPhysicsWorld(getPhysicsWorld());
+        getPhysicsWorld().addCollisionHandler(ph);
 
         if (boss != null) //testing
             ComponentHandler.linkBossComponents(player, boss);

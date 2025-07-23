@@ -23,7 +23,7 @@ public class NPCFactory implements EntityFactory {
 
         return entityBuilder()
                 .type(EntityType.NPC)
-                .at(300, 305)
+                .at(300, 450)
                 .with(pc)
                 .viewWithBBox(new Rectangle(25, 25, Color.GREEN))
                 .collidable()

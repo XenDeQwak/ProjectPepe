@@ -7,12 +7,13 @@
     <groupId>com.xen.rzlgame</groupId>
     <artifactId>RZL</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>RZL</name>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <junit.version>5.10.2</junit.version>
     </properties>
+    <name>RZL</name>
 
     <dependencies>
         <dependency>
@@ -33,7 +34,7 @@
         <dependency>
             <groupId>com.github.almasb</groupId>
             <artifactId>fxgl</artifactId>
-            <version>17.3</version>
+            <version>21.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.openjfx</groupId>
@@ -60,10 +61,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>3.8.0</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <release>11</release>
                 </configuration>
             </plugin>
             <plugin>

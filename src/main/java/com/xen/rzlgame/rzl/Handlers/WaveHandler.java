@@ -1,4 +1,4 @@
-package com.xen.rzlgame.rzl.Managers;
+package com.xen.rzlgame.rzl.Handlers;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -6,20 +6,23 @@ import com.xen.rzlgame.rzl.Components.MinionComponent;
 import com.xen.rzlgame.rzl.Factories.EntityType;
 import javafx.util.Duration;
 
-public class WaveManager {
+public class WaveHandler {
     private int wave = 0;
     private final int[] numEnemies = {10, 15, 20};
     private boolean waveHasSpawned = false;
     private boolean waveIsSpawning = false;
     private boolean waveBreakActive = false;
+    private boolean isCutsceneActive = true;
     private final Entity player;
 
-    public WaveManager(Entity player) {
+    public WaveHandler(Entity player) {
         this.player = player;
         FXGL.run(this::updateState, Duration.seconds(1));
     }
 
     public void updateState() {
+        if (isCutsceneActive) return;
+
         if (!waveHasSpawned && !waveIsSpawning && !waveBreakActive && wave < numEnemies.length) {
             waveHasSpawned = true;
             waveIsSpawning = true;
@@ -66,11 +69,7 @@ public class WaveManager {
         return FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).isEmpty();
     }
 
-    public boolean hasWaveSpawned() {
-        return waveHasSpawned;
-    }
-
-    public int getWave() {
-        return wave;
+    public void setCutsceneActive(boolean cutsceneActive) {
+        isCutsceneActive = cutsceneActive;
     }
 }

@@ -1,0 +1,8 @@
+1.name = Maria Clara
+2.name = Ibarra
+
+2: Maria Clara...
+1: 'Wag kang mag-alala. Kakayanin natin ito
+2: Pero paano ka na?
+1: Ipagpatuloy mo na ang iyong misyon. Alisin mo na ang mga prayle sa ating sitio.
+2: Gagawin ko ito sa ngalan ng ating kinabukasan.

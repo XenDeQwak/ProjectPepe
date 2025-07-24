@@ -10,9 +10,12 @@ import javafx.scene.input.KeyCode;
 public class InteractionHandler {
 
     private PlayerNPCCollisionHandler ph;
+    private WaveHandler wave;
+    private int count = 0;
 
-    public InteractionHandler(PlayerNPCCollisionHandler ph) {
+    public InteractionHandler(PlayerNPCCollisionHandler ph, WaveHandler wave) {
         this.ph = ph;
+        this.wave = wave;
     }
 
     public void initInput(Input input) {
@@ -20,17 +23,25 @@ public class InteractionHandler {
             @Override
             protected void onActionBegin() {
                 switch (ph.getCurrentNpc()) {
-                    case "JAMES": {
-                        var lines = FXGL.getAssetLoader().loadText("test.txt");
-                        var cs = new Cutscene(lines);
-                        FXGL.getCutsceneService().startCutscene(cs);
+                    case "Maria Clara": {
+                        playCutscene("maria.txt");
                         break;
                     }
-                    case "BRIAN": {
+                    case "Elias": {
+                        playCutscene("elias.txt");
                         break;
                     }
                 }
             }
         }, KeyCode.Z);
     }
+    public void playCutscene(String fileName) {
+        var lines = FXGL.getAssetLoader().loadText(fileName);
+        var cs = new Cutscene(lines);
+        FXGL.getCutsceneService().startCutscene(cs, () -> {
+            count++;
+            if (count >= 2) wave.setCutsceneActive(false);
+        });
+    }
+
 }

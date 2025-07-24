@@ -15,33 +15,33 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 
 public class NPCFactory implements EntityFactory {
 
-    @Spawns("James")
-    public Entity newJames(SpawnData data) {
+    @Spawns("Maria Clara")
+    public Entity newMariaClara(SpawnData data) {
 
         PhysicsComponent pc = new PhysicsComponent();
         pc.setBodyType(BodyType.STATIC);
 
         return entityBuilder()
                 .type(EntityType.NPC)
-                .at(300, 450)
+                .at(300, 475)
                 .with(pc)
                 .viewWithBBox(new Rectangle(25, 25, Color.GREEN))
                 .collidable()
-                .with(new NpcIdComponent("JAMES"))
+                .with(new NpcIdComponent("Maria Clara"))
                 .buildAndAttach();
     }
 
-    @Spawns("Brian")
-    public Entity newBrian(SpawnData data) {
+    @Spawns("Elias")
+    public Entity newElias(SpawnData data) {
 
         PhysicsComponent pc = new PhysicsComponent();
         pc.setBodyType(BodyType.STATIC);
 
         return entityBuilder()
                 .type(EntityType.NPC)
-                .at(200, 305)
+                .at(200, 475)
                 .with(pc)
-                .with(new NpcIdComponent("BRIAN"))
+                .with(new NpcIdComponent("Elias"))
                 .viewWithBBox(new Rectangle(25, 25, Color.YELLOW))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();

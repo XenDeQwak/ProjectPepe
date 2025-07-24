@@ -13,5 +13,4 @@ open module com.xen.rzlgame.rzl {
     exports com.xen.rzlgame.rzl.Factories;
     exports com.xen.rzlgame.rzl.Handlers;
     exports com.xen.rzlgame.rzl.Handlers.Collisions;
-    exports com.xen.rzlgame.rzl.Managers;
 }

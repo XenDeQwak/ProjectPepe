@@ -1,13 +1,11 @@
 package com.xen.rzlgame.rzl.Handlers;
 
-import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.PhysicsWorld;
 import com.almasb.fxgl.entity.GameWorld;
 import com.xen.rzlgame.rzl.Factories.*;
 import com.xen.rzlgame.rzl.Components.*;
 import com.xen.rzlgame.rzl.Handlers.Collisions.*;
-import com.xen.rzlgame.rzl.Managers.WaveManager;
 import com.xen.rzlgame.rzl.UI.*;
 
 public class ComponentHandler {

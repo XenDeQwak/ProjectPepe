@@ -14,6 +14,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 public class HelloApplication extends GameApplication {
 
     private final PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler();
+    private WaveHandler wave;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -26,7 +27,6 @@ public class HelloApplication extends GameApplication {
     protected void initGame() {
         Entity boss;
         Entity player;
-        WaveHandler wave;
 
         ComponentHandler.initFactories(getGameWorld());
         SpawningHandler spawn = new SpawningHandler();
@@ -53,5 +53,9 @@ public class HelloApplication extends GameApplication {
         launch(args);
     }
 
-
+    @Override
+    public void onUpdate(double tpf) {
+        if(wave.getWave()>0)
+            ComponentHandler.linkWaveComponents(wave);
+    }
 }

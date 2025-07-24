@@ -21,6 +21,11 @@ public class WaveHandler {
     }
 
     public void updateState() {
+        System.out.println("Cutscene: " + isCutsceneActive);
+        System.out.println("Wave Break: " + waveBreakActive);
+        System.out.println("Wave Spawn: " + waveIsSpawning);
+        System.out.println("Wave has spawned " + waveHasSpawned);
+        System.out.println("Are enemies dead " + areEnemiesDead());
         if (isCutsceneActive) return;
 
         if (!waveHasSpawned && !waveIsSpawning && !waveBreakActive && wave < numEnemies.length) {
@@ -38,7 +43,7 @@ public class WaveHandler {
     private void startWaveBreak() {
         if (wave < numEnemies.length) {
             waveBreakActive = true;
-            FXGL.runOnce(() -> waveBreakActive = false, Duration.seconds(20));
+            FXGL.runOnce(() -> waveBreakActive = false, Duration.seconds(2));
         }
     }
 
@@ -63,6 +68,7 @@ public class WaveHandler {
                 minion.getComponent(MinionComponent.class).setPlayer(player);
             }, Duration.seconds(i + 1D));
         }
+        FXGL.runOnce(() -> waveIsSpawning = false, Duration.seconds(count));
     }
 
     public boolean areEnemiesDead() {
@@ -71,5 +77,9 @@ public class WaveHandler {
 
     public void setCutsceneActive(boolean cutsceneActive) {
         isCutsceneActive = cutsceneActive;
+    }
+
+    public int getWave() {
+        return wave;
     }
 }

@@ -2,8 +2,7 @@ package com.xen.rzlgame.rzl.Handlers.Collisions;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.CollisionHandler;
-import com.almasb.fxgl.physics.PhysicsWorld;
-import com.xen.rzlgame.rzl.Components.NpcIdComponent;
+import com.xen.rzlgame.rzl.Components.NpcComponent;
 import com.xen.rzlgame.rzl.Factories.EntityType;
 
 public class PlayerNPCCollisionHandler extends CollisionHandler {
@@ -27,6 +26,6 @@ public class PlayerNPCCollisionHandler extends CollisionHandler {
 
     public String getCurrentNpc() {
         if (currentNpc == null) return "";
-        return currentNpc.getComponent(NpcIdComponent.class).getId();
+        return currentNpc.getComponent(NpcComponent.class).getId();
     }
 }

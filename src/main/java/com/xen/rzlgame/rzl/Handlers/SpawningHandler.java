@@ -21,7 +21,6 @@ public class SpawningHandler {
     public void spawnAll() {
         spawner.put(PLAYER, FXGL.spawn(PLAYER));
         spawner.put(NPC_MARIA_CLARA, FXGL.spawn(NPC_MARIA_CLARA));
-        //spawner.put(BOSS, FXGL.spawn(BOSS));
         spawner.put(NPC_ELIAS, FXGL.spawn(NPC_ELIAS));
         spawner.put(FLOOR, FXGL.spawn(FLOOR));
     }

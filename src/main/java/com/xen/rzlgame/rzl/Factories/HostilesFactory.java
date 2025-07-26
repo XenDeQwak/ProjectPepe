@@ -30,7 +30,7 @@ public class HostilesFactory implements EntityFactory {
         return entityBuilder()
                 .at(500, 450)
                 .type(EntityType.BOSS)
-                .viewWithBBox(new Rectangle(25, 25, Color.RED))
+                .viewWithBBox(new Rectangle(50, 50, Color.RED))
                 .with(pc)
                 .with(new BossComponent())
                 .collidable()

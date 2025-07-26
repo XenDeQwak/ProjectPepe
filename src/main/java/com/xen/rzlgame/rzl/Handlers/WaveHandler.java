@@ -21,11 +21,6 @@ public class WaveHandler {
     }
 
     public void updateState() {
-        System.out.println("Cutscene: " + isCutsceneActive);
-        System.out.println("Wave Break: " + waveBreakActive);
-        System.out.println("Wave Spawn: " + waveIsSpawning);
-        System.out.println("Wave has spawned " + waveHasSpawned);
-        System.out.println("Are enemies dead " + areEnemiesDead());
         if (isCutsceneActive) return;
 
         if (!waveHasSpawned && !waveIsSpawning && !waveBreakActive && wave < numEnemies.length) {
@@ -59,7 +54,7 @@ public class WaveHandler {
                 int posInRing = index % 8;
 
                 double angle = (2 * Math.PI * posInRing) / 8;
-                double radius = 60 + (ring * 40);
+                double radius = (double)60 + (ring * 40);
 
                 double spawnX = playerX + Math.cos(angle) * radius;
                 double spawnY = playerY + Math.sin(angle) * radius;

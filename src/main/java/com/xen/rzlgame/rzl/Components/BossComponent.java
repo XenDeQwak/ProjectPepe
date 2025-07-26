@@ -40,7 +40,6 @@ public class BossComponent extends Component {
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(3));
     }
 
-
     public void onDeath() {
         if (currentHealth <= 0) {
             entity.removeFromWorld();
@@ -89,5 +88,6 @@ public class BossComponent extends Component {
     public void setPlayer(Entity player) {
         this.player = player;
     }
+
 }
 

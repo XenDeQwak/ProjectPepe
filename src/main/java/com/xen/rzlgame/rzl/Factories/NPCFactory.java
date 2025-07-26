@@ -7,7 +7,7 @@ import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
-import com.xen.rzlgame.rzl.Components.NpcIdComponent;
+import com.xen.rzlgame.rzl.Components.NpcComponent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 
@@ -27,7 +27,7 @@ public class NPCFactory implements EntityFactory {
                 .with(pc)
                 .viewWithBBox(new Rectangle(25, 25, Color.GREEN))
                 .collidable()
-                .with(new NpcIdComponent("Maria Clara"))
+                .with(new NpcComponent("Maria Clara"))
                 .buildAndAttach();
     }
 
@@ -41,7 +41,7 @@ public class NPCFactory implements EntityFactory {
                 .type(EntityType.NPC)
                 .at(200, 475)
                 .with(pc)
-                .with(new NpcIdComponent("Elias"))
+                .with(new NpcComponent("Elias"))
                 .viewWithBBox(new Rectangle(25, 25, Color.YELLOW))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();

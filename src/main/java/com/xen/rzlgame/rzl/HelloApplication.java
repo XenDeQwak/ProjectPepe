@@ -8,6 +8,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.xen.rzlgame.rzl.Handlers.*;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerNPCCollisionHandler;
 import com.xen.rzlgame.rzl.Handlers.WaveHandler;
+import com.xen.rzlgame.rzl.UI.WaveUIComponents;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
@@ -15,6 +16,10 @@ public class HelloApplication extends GameApplication {
 
     private final PlayerNPCCollisionHandler ph = new PlayerNPCCollisionHandler();
     private WaveHandler wave;
+    private WaveUIComponents waveUi;
+    private Entity player;
+    private boolean bossSpawned = false;
+
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -25,21 +30,16 @@ public class HelloApplication extends GameApplication {
 
     @Override
     protected void initGame() {
-        Entity boss;
-        Entity player;
-
         ComponentHandler.initFactories(getGameWorld());
         SpawningHandler spawn = new SpawningHandler();
         spawn.spawnAll();
         player = spawn.getPlayer();
-        boss = spawn.getBoss();
+
         wave = new WaveHandler(player);
 
         ComponentHandler.initPhysicsWorld(getPhysicsWorld());
         getPhysicsWorld().addCollisionHandler(ph);
 
-        if (boss != null) //testing
-            ComponentHandler.linkBossComponents(player, boss);
         ComponentHandler.linkPlayerComponents(player);
 
         getGameScene().getViewport().setBounds(0, 0, 2400, 600);
@@ -55,7 +55,15 @@ public class HelloApplication extends GameApplication {
 
     @Override
     public void onUpdate(double tpf) {
-        if(wave.getWave()>0)
-            ComponentHandler.linkWaveComponents(wave);
+        if (wave.getWave() > 0) {
+            if (waveUi == null)
+                waveUi = new WaveUIComponents(wave);
+            ComponentHandler.linkWaveComponents(wave, waveUi);
+            if (wave.getWave() == 3 && !bossSpawned) {//testing
+                Entity boss = FXGL.spawn("Boss");
+                ComponentHandler.linkBossComponents(player, boss);
+                bossSpawned = true;
+            }
+        }
     }
 }

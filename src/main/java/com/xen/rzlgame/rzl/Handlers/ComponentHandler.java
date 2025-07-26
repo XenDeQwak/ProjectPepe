@@ -41,8 +41,8 @@ public class ComponentHandler {
         pc.setPlayerUi(playerUi);
     }
 
-    public static void linkWaveComponents(WaveHandler wave) {
+    public static void linkWaveComponents(WaveHandler wave, WaveUIComponents waveUi) {
         if(wave==null) return;
-        new WaveUIComponents(wave);
+        waveUi.updateWave();
     }
 }

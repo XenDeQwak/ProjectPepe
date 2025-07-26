@@ -15,7 +15,7 @@ public class PlayerFollowComponent extends Component {
     @Override
     public void onUpdate(double tpf) {
         if (facingX > 0)
-            entity.setPosition(player.getCenter().add(20, -3));
-        else entity.setPosition(player.getCenter().add(-60, -3));
+            entity.setPosition(player.getCenter().add(5, -3));
+        else entity.setPosition(player.getCenter().add(-35, -3));
     }
 }

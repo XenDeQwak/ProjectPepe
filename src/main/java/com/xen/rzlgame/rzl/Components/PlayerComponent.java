@@ -26,7 +26,7 @@ public class PlayerComponent extends Component {
         Entity atk = FXGL.spawn("attack");
         atk.addComponent(new PlayerFollowComponent(entity, facingX));
 
-        FXGL.runOnce(atk::removeFromWorld, Duration.seconds(0.3));
+        FXGL.runOnce(atk::removeFromWorld, Duration.seconds(0.5));
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(0.5));
     }
 
@@ -77,9 +77,9 @@ public class PlayerComponent extends Component {
 
     public void setFacingX(int facingX) {
         this.facingX = facingX;
-    };
+    }
 
-    public int getFacingX() {
-        return facingX;
+    public boolean isCanAttack() {
+        return canAttack;
     }
 }

@@ -9,6 +9,7 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
+import com.xen.rzlgame.rzl.Components.AnimationComponent;
 import com.xen.rzlgame.rzl.Components.AttackComponent;
 import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import javafx.scene.paint.Color;
@@ -24,13 +25,14 @@ public class PlayerFactory implements EntityFactory {
 
         PhysicsComponent pc = new PhysicsComponent();
         pc.setBodyType(BodyType.DYNAMIC);
-        pc.addGroundSensor(new HitBox(BoundingShape.box(25, 25)));
+        pc.addGroundSensor(new HitBox(BoundingShape.box(30, 33)));
 
         return entityBuilder()
                 .type(EntityType.PLAYER)
                 .at(300, 450)
                 .with(pc)
-                .viewWithBBox(new Rectangle(25, 25, Color.BLUE))
+                .bbox(new HitBox(BoundingShape.box(30, 33)))
+                .with(new AnimationComponent())
                 .collidable()
                 .with(new PlayerComponent())
                 .buildAndAttach();
@@ -41,7 +43,7 @@ public class PlayerFactory implements EntityFactory {
 
         return entityBuilder(data)
                 .type(EntityType.PLAYER_ATTACK)
-                .viewWithBBox(new Rectangle(40, 10, Color.ORANGE))
+                .bbox(new HitBox(BoundingShape.box(30, 10)))
                 .with(new AttackComponent())
                 .collidable()
                 .build();

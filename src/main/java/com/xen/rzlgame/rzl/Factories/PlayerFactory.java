@@ -4,16 +4,13 @@ import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
-import com.xen.rzlgame.rzl.Components.AnimationComponent;
+import com.xen.rzlgame.rzl.Components.PlayerAnimationComponent;
 import com.xen.rzlgame.rzl.Components.AttackComponent;
 import com.xen.rzlgame.rzl.Components.PlayerComponent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 
 import static com.almasb.fxgl.dsl.FXGL.*;
@@ -32,7 +29,7 @@ public class PlayerFactory implements EntityFactory {
                 .at(300, 450)
                 .with(pc)
                 .bbox(new HitBox(BoundingShape.box(30, 33)))
-                .with(new AnimationComponent())
+                .with(new PlayerAnimationComponent())
                 .collidable()
                 .with(new PlayerComponent())
                 .buildAndAttach();

@@ -14,14 +14,14 @@ public class BossPlayerCollisionHandler extends CollisionHandler {
 
     @Override
     protected void onCollisionBegin(Entity boss, Entity player) {
-        player.getComponent(PlayerComponent.class).setCurrentHealth(
-                player
-                    .getComponent(PlayerComponent.class)
-                    .getCurrentHealth() -
-                boss
-                    .getComponent(BossComponent.class)
-                    .getOnTouchDmg()
-        );
+//        player.getComponent(PlayerComponent.class).setCurrentHealth(
+//                player
+//                    .getComponent(PlayerComponent.class)
+//                    .getCurrentHealth() -
+//                boss
+//                    .getComponent(BossComponent.class)
+//                    .getOnTouchDmg()
+//        );
     }
 
 }

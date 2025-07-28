@@ -1,14 +1,13 @@
 package com.xen.rzlgame.rzl.Components;
 
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 import javafx.util.Duration;
 
-public class AnimationComponent extends Component {
+public class PlayerAnimationComponent extends Component {
 
     private final AnimatedTexture texture;
     private final AnimationChannel playerWalk;
@@ -16,7 +15,7 @@ public class AnimationComponent extends Component {
     private final AnimationChannel playerJump;
     private final AnimationChannel playerAttack;
 
-    public AnimationComponent() {
+    public PlayerAnimationComponent() {
        playerWalk = new AnimationChannel(
                FXGL.image("playerWalk.png"),
                8,

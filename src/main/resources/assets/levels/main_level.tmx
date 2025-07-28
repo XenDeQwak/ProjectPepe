@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="75" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="2">
+ <tileset firstgid="1" name="terrain_top_center_A_full" tilewidth="32" tileheight="32" tilecount="1" columns="1">
+  <image source="terrain_top_center_A_full.png" width="32" height="48"/>
+ </tileset>
+ <tileset firstgid="2" name="terrain_center_A" tilewidth="32" tileheight="32" tilecount="1" columns="1">
+  <image source="terrain_center_A.png" width="32" height="32"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="75" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztw7ENAAAIA6Dq/0f7gpsOkJAAAAAAwF/lequnB2ZoAg4=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Floor">
+  <object id="1" type="floor" x="0" y="525" width="2400" height="32"/>
+ </objectgroup>
+</map>

@@ -4,6 +4,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.xen.rzlgame.rzl.Components.MinionComponent;
 import com.xen.rzlgame.rzl.Factories.EntityType;
+import javafx.geometry.Point2D;
 import javafx.util.Duration;
 
 public class WaveHandler {
@@ -26,7 +27,7 @@ public class WaveHandler {
         if (!waveHasSpawned && !waveIsSpawning && !waveBreakActive && wave < numEnemies.length) {
             waveHasSpawned = true;
             waveIsSpawning = true;
-            spawnWave();
+            //spawnWave();
             wave++;
         }
         if (areEnemiesDead() && waveHasSpawned && !waveIsSpawning && !waveBreakActive) {
@@ -44,26 +45,27 @@ public class WaveHandler {
 
     private void spawnWave() {
         int count = numEnemies[wave];
-        double playerX = player.getX();
-        double playerY = player.getY();
 
         for (int i = 0; i < count; i++) {
-            final int index = i;
             FXGL.runOnce(() -> {
-                int ring = index / 8;
-                int posInRing = index % 8;
-
-                double angle = (2 * Math.PI * posInRing) / 8;
-                double radius = (double)60 + (ring * 40);
-
-                double spawnX = playerX + Math.cos(angle) * radius;
-                double spawnY = playerY + Math.sin(angle) * radius;
-
-                Entity minion = FXGL.spawn("minion", spawnX, spawnY);
+                Entity minion = FXGL.spawn("minion", spawnNearPlayer());
                 minion.getComponent(MinionComponent.class).setPlayer(player);
             }, Duration.seconds(i + 1D));
         }
         FXGL.runOnce(() -> waveIsSpawning = false, Duration.seconds(count));
+    }
+
+    private Point2D spawnNearPlayer() {
+        int ring = 1;
+        int posInRing = 1 % 8;
+
+        double angle = (2 * Math.PI * posInRing) / 8;
+        double radius = (double) 20 + (ring * 20);
+
+        double playerX = player.getX() + player.getWidth() / 2;
+
+        double spawnX = playerX + Math.cos(angle) * radius;
+        return new Point2D(spawnX, 500);
     }
 
     public boolean areEnemiesDead() {
@@ -77,4 +79,5 @@ public class WaveHandler {
     public int getWave() {
         return wave;
     }
+
 }

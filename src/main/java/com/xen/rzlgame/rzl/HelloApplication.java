@@ -31,8 +31,9 @@ public class HelloApplication extends GameApplication {
 
     @Override
     protected void initGame() {
-
         ComponentHandler.initFactories(getGameWorld());
+        setLevelFromMap("main_level.tmx");
+
         SpawningHandler spawn = new SpawningHandler();
         spawn.spawnAll();
         player = spawn.getPlayer();
@@ -61,7 +62,7 @@ public class HelloApplication extends GameApplication {
             if (waveUi == null)
                 waveUi = new WaveUIComponents(wave);
             ComponentHandler.linkWaveComponents(wave, waveUi);
-            if (wave.getWave() == 3 && !bossSpawned) {
+            if (wave.getWave() == 1 && !bossSpawned) {
                 Entity boss = FXGL.spawn("Boss");
                 ComponentHandler.linkBossComponents(player, boss);
                 bossSpawned = true;

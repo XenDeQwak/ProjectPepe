@@ -14,9 +14,7 @@ public class BossFollowComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        if (player.getPosition().getX() > boss.getPosition().getX())
-            entity.setPosition(boss.getCenter().add(20, -3));
-        else
-            entity.setPosition(boss.getCenter().add(-60, -3));
+        if (player.getPosition().getX() > boss.getPosition().getX()) entity.setPosition(boss.getCenter().add(25, 53));
+        else entity.setPosition(boss.getCenter().add(-60, 53));
     }
 }

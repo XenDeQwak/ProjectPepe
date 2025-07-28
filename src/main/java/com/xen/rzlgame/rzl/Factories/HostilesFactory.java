@@ -1,6 +1,5 @@
 package com.xen.rzlgame.rzl.Factories;
 
-import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
@@ -10,6 +9,7 @@ import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.xen.rzlgame.rzl.Components.AttackComponent;
+import com.xen.rzlgame.rzl.Components.BossAnimationComponent;
 import com.xen.rzlgame.rzl.Components.BossComponent;
 import com.xen.rzlgame.rzl.Components.MinionComponent;
 import javafx.scene.paint.Color;
@@ -30,9 +30,10 @@ public class HostilesFactory implements EntityFactory {
         return entityBuilder()
                 .at(500, 450)
                 .type(EntityType.BOSS)
-                .viewWithBBox(new Rectangle(50, 50, Color.RED))
+                .bbox(new HitBox(BoundingShape.box(100, 180)))
                 .with(pc)
                 .with(new BossComponent())
+                .with(new BossAnimationComponent())
                 .collidable()
                 .buildAndAttach();
     }
@@ -42,19 +43,7 @@ public class HostilesFactory implements EntityFactory {
 
         return entityBuilder(data)
                 .type(EntityType.BOSS_ATTACK)
-                .viewWithBBox(new Rectangle(40, 40, Color.ORANGE))
-                .with(new AttackComponent())
-                .collidable()
-                .build();
-
-    }
-
-    @Spawns("bossAttackB")
-    public Entity newBossAttackB(SpawnData data) {
-
-        return entityBuilder(data)
-                .type(EntityType.BOSS_ATTACK)
-                .viewWithBBox(new Rectangle(80, 40, Color.ORANGE))
+                .bbox(new HitBox(BoundingShape.box(40, 40)))
                 .with(new AttackComponent())
                 .collidable()
                 .build();

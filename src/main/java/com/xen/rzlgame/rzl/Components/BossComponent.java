@@ -1,6 +1,4 @@
 package com.xen.rzlgame.rzl.Components;
-
-import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
@@ -10,8 +8,6 @@ import com.xen.rzlgame.rzl.UI.BossUIComponents;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 
-import java.util.List;
-
 public class BossComponent extends Component {
 
     private int maxHealth = 100;
@@ -20,23 +16,22 @@ public class BossComponent extends Component {
     private boolean canAttack = true;
     private BossUIComponents bossUI;
     private Entity player;
+    private Entity bossAtk;
 
     public void bossAttack() {
         if (!canAttack) return;
         canAttack = false;
 
-        List<String> patterns = List.of(
-                "bossAttackA",
-                "bossAttackB"
-                //"bossAttackC"
-        );
+        FXGL.runOnce(()-> {
+            bossAtk = FXGL.spawn("bossAttackA");
+            bossAtk.addComponent(new BossFollowComponent(entity, player));
+            FXGL.runOnce(bossAtk::removeFromWorld, Duration.seconds(1));
+        }, Duration.seconds(0.6));
 
-        int index = FXGLMath.random(0, patterns.size() - 1);
-        String chosen = patterns.get(index);
-        Entity bossAtk = FXGL.spawn(chosen);
-        bossAtk.addComponent(new BossFollowComponent(entity, player));
-
-        FXGL.runOnce(bossAtk::removeFromWorld, Duration.seconds(0.3));
+        entity.getComponent(BossAnimationComponent.class).playAttack();
+        FXGL.runOnce(() -> {
+            if (entity.isActive()) entity.getComponent(BossAnimationComponent.class).loopWalk();
+        }, Duration.seconds(2));
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(3));
     }
 
@@ -49,10 +44,16 @@ public class BossComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        bossAttack();
+        if (canAttack && isInRange()) bossAttack();
         onDeath();
-        followPlayer();
+        if (canAttack) followPlayer();
     }
+
+    private boolean isInRange() {
+        double distance = entity.getCenter().distance(player.getCenter());
+        return distance <= 150;
+    }
+
 
     public void followPlayer() {
         double dx = player.getX() - entity.getX();
@@ -89,5 +90,12 @@ public class BossComponent extends Component {
         this.player = player;
     }
 
+    public boolean isCanAttack() {
+        return canAttack;
+    }
+
+    public Entity getPlayer() {
+        return player;
+    }
 }
 

@@ -14,14 +14,14 @@ public class BossAttackPlayerCollisionHandler extends CollisionHandler {
 
     @Override
     protected void onCollisionBegin(Entity attack, Entity player) {
-        if(player.getComponent(PlayerComponent.class).isCanParry()) return;
-        player.getComponent(PlayerComponent.class).setCurrentHealth(
-                player
-                        .getComponent(PlayerComponent.class)
-                        .getCurrentHealth() -
-                attack
-                        .getComponent(AttackComponent.class)
-                        .getBossDamage()
-        );
+//        if(player.getComponent(PlayerComponent.class).isCanParry()) return;
+//        player.getComponent(PlayerComponent.class).setCurrentHealth(
+//                player
+//                        .getComponent(PlayerComponent.class)
+//                        .getCurrentHealth() -
+//                attack
+//                        .getComponent(AttackComponent.class)
+//                        .getBossDamage()
+//        );
     }
 }

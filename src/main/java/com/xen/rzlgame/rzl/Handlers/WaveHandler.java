@@ -27,7 +27,7 @@ public class WaveHandler {
         if (!waveHasSpawned && !waveIsSpawning && !waveBreakActive && wave < numEnemies.length) {
             waveHasSpawned = true;
             waveIsSpawning = true;
-            //spawnWave();
+            spawnWave();
             wave++;
         }
         if (areEnemiesDead() && waveHasSpawned && !waveIsSpawning && !waveBreakActive) {
@@ -65,7 +65,7 @@ public class WaveHandler {
         double playerX = player.getX() + player.getWidth() / 2;
 
         double spawnX = playerX + Math.cos(angle) * radius;
-        return new Point2D(spawnX, 500);
+        return new Point2D(spawnX, 450);
     }
 
     public boolean areEnemiesDead() {

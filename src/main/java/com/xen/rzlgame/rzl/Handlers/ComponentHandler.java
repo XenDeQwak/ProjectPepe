@@ -22,7 +22,6 @@ public class ComponentHandler {
     public static void initPhysicsWorld(PhysicsWorld physics) {
         physics.addCollisionHandler(new PlayerAttackBossCollisionHandler());
         physics.addCollisionHandler(new BossAttackPlayerCollisionHandler());
-        physics.addCollisionHandler(new BossPlayerCollisionHandler());
         physics.addCollisionHandler(new PlayerEnemyCollisionHandler());
         physics.addCollisionHandler(new PlayerAttackEnemyCollisionHandler());
         physics.setGravity(0, 1200);

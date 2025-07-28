@@ -8,7 +8,7 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
-import com.xen.rzlgame.rzl.Components.PlayerAnimationComponent;
+import com.xen.rzlgame.rzl.Components.Animations.PlayerAnimationComponent;
 import com.xen.rzlgame.rzl.Components.AttackComponent;
 import com.xen.rzlgame.rzl.Components.PlayerComponent;
 

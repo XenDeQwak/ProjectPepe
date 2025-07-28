@@ -8,8 +8,9 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
+import com.xen.rzlgame.rzl.Components.Animations.MinionAnimationComponent;
 import com.xen.rzlgame.rzl.Components.AttackComponent;
-import com.xen.rzlgame.rzl.Components.BossAnimationComponent;
+import com.xen.rzlgame.rzl.Components.Animations.BossAnimationComponent;
 import com.xen.rzlgame.rzl.Components.BossComponent;
 import com.xen.rzlgame.rzl.Components.MinionComponent;
 import javafx.scene.paint.Color;
@@ -58,9 +59,10 @@ public class HostilesFactory implements EntityFactory {
 
         return entityBuilder(data)
                 .type(EntityType.ENEMY)
-                .viewWithBBox(new Rectangle(25, 25, Color.RED))
+                .bbox(new HitBox(BoundingShape.box(25, 65)))
                 .with(pc)
                 .with(new MinionComponent())
+                .with(new MinionAnimationComponent())
                 .collidable()
                 .build();
 

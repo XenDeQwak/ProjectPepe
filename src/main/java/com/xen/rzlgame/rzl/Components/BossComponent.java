@@ -3,6 +3,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.xen.rzlgame.rzl.Components.Animations.BossAnimationComponent;
 import com.xen.rzlgame.rzl.Components.AttackFollowComponent.BossFollowComponent;
 import com.xen.rzlgame.rzl.UI.BossUIComponents;
 import javafx.geometry.Point2D;
@@ -51,7 +52,7 @@ public class BossComponent extends Component {
 
     private boolean isInRange() {
         double distance = entity.getCenter().distance(player.getCenter());
-        return distance <= 150;
+        return distance <= 125;
     }
 
 

@@ -62,7 +62,7 @@ public class HelloApplication extends GameApplication {
             if (waveUi == null)
                 waveUi = new WaveUIComponents(wave);
             ComponentHandler.linkWaveComponents(wave, waveUi);
-            if (wave.getWave() == 1 && !bossSpawned) {
+            if (wave.getWave() == 3 && !bossSpawned) {
                 Entity boss = FXGL.spawn("Boss");
                 ComponentHandler.linkBossComponents(player, boss);
                 bossSpawned = true;

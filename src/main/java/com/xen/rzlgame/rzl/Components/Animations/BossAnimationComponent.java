@@ -1,9 +1,10 @@
-package com.xen.rzlgame.rzl.Components;
+package com.xen.rzlgame.rzl.Components.Animations;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
+import com.xen.rzlgame.rzl.Components.BossComponent;
 import javafx.util.Duration;
 
 public class BossAnimationComponent extends Component {

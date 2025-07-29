@@ -69,5 +69,6 @@ public class BossUIComponents {
     public void healthBarGone() {
         FXGL.getGameScene().removeUINode(healthBar);
         FXGL.getGameScene().removeUINode(healthBarBorder);
+        FXGL.getGameScene().removeUINode(bossName);
     }
 }

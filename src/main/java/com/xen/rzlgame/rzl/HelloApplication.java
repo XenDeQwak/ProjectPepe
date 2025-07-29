@@ -5,6 +5,7 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import com.xen.rzlgame.rzl.Factories.EntityType;
 import com.xen.rzlgame.rzl.Handlers.*;
 import com.xen.rzlgame.rzl.Handlers.Collisions.PlayerNPCCollisionHandler;
@@ -22,10 +23,13 @@ public class HelloApplication extends GameApplication {
     private WaveUIComponents waveUi;
     private Entity player;
     private boolean bossSpawned = false;
+    private int lastWave = -1;
 
 
     @Override
     protected void initSettings(GameSettings settings) {
+        settings.setTitle("Rizal: Noli Me Tangere");
+        settings.setVersion("");
         settings.setWidth(800);
         settings.setHeight(600);
         settings.setApplicationMode(ApplicationMode.DEVELOPER);
@@ -71,20 +75,28 @@ public class HelloApplication extends GameApplication {
 
     @Override
     public void onUpdate(double tpf) {
-        if (wave.getWave() > 0) {
+        int currentWave = wave.getWave();
+
+        if (currentWave > 0) {
             if (waveUi == null)
                 waveUi = new WaveUIComponents(wave);
             ComponentHandler.linkWaveComponents(wave, waveUi);
-            if (wave.getWave() == 3 && !bossSpawned) {
+
+            if ((currentWave == 2 || currentWave == 3) && currentWave != lastWave)
+                player.getComponent(PlayerComponent.class).setCurrentHealth(100);
+
+            if (currentWave == 3 && !bossSpawned) {
                 Entity boss = FXGL.spawn("Boss");
                 ComponentHandler.linkBossComponents(player, boss);
                 bossSpawned = true;
                 getAudioPlayer().stopMusic(FXGL.getAssetLoader().loadMusic("bgm1.mp3"));
                 loopBGM("bgm2.mp3");
 
-                if (getGameWorld().getEntitiesByType(EntityType.BOSS, EntityType.ENEMY).isEmpty() && wave.getWave() == 3)
+                if (getGameWorld().getEntitiesByType(EntityType.BOSS, EntityType.ENEMY).isEmpty())
                     FXGL.getDialogService().showMessageBox("You've beaten Padre Salvi!", () -> FXGL.getGameController().exit());
             }
         }
+        lastWave = currentWave;
     }
+
 }

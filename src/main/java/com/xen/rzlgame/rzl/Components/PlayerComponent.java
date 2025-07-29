@@ -13,7 +13,7 @@ public class PlayerComponent extends Component {
     private boolean canAttack = true;
     private boolean canParry = false;
     private boolean isGuarding = false;
-    private int maxHealth = 100;
+    private int maxHealth = 125;
     private int currentHealth = maxHealth;
     private PlayerUIComponents playerUi;
     private boolean isParryOnCooldown = false;

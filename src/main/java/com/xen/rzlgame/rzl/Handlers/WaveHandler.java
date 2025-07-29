@@ -3,6 +3,7 @@ package com.xen.rzlgame.rzl.Handlers;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.xen.rzlgame.rzl.Components.MinionComponent;
+import com.xen.rzlgame.rzl.Components.PlayerComponent;
 import com.xen.rzlgame.rzl.Factories.EntityType;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
@@ -52,7 +53,9 @@ public class WaveHandler {
                 minion.getComponent(MinionComponent.class).setPlayer(player);
             }, Duration.seconds(i + 3D));
         }
-        FXGL.runOnce(() -> waveIsSpawning = false, Duration.seconds(count));
+        FXGL.runOnce(() -> {
+            waveIsSpawning = false;
+        }, Duration.seconds(count));
     }
 
     private Point2D spawnNearPlayer() {

@@ -16,6 +16,8 @@ public class PlayerComponent extends Component {
     private int maxHealth = 100;
     private int currentHealth = maxHealth;
     private PlayerUIComponents playerUi;
+    private boolean isParryOnCooldown = false;
+
 
     private int facingX;
 
@@ -25,24 +27,35 @@ public class PlayerComponent extends Component {
 
         Entity atk = FXGL.spawn("attack");
         atk.addComponent(new PlayerFollowComponent(entity, facingX));
-
+        FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("sword.mp3"));
         FXGL.runOnce(atk::removeFromWorld, Duration.seconds(0.5));
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(0.5));
     }
 
     public void parryStance() {
+        if (isParryOnCooldown) return;
+
         canParry = true;
         canAttack = false;
+        isParryOnCooldown = true;
+
         FXGL.runOnce(() -> {
             canAttack = true;
             canParry = false;
         }, Duration.seconds(0.3));
+
+        FXGL.runOnce(() -> isParryOnCooldown = false, Duration.seconds(1.0));
+
+        FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("parry.mp3"));
     }
+
 
     public void onDeath() {
         if (currentHealth <= 0) {
             entity.removeFromWorld();
             playerUi.healthBarGone();
+            FXGL.getGameController().pauseEngine();
+            FXGL.getDialogService().showMessageBox("Game Over", () -> FXGL.getGameController().exit());
         }
     }
 
@@ -61,8 +74,11 @@ public class PlayerComponent extends Component {
     }
 
     public void jump() {
-        if (entity.getComponent(PhysicsComponent.class).isOnGround())
+        if (entity.getComponent(PhysicsComponent.class).isOnGround()) {
             entity.getComponent(PhysicsComponent.class).setVelocityY(-500);
+            FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("jump.mp3"));
+        }
+
     }
 
     public boolean isCanParry() { return canParry;}

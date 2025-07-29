@@ -5,12 +5,15 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 import com.xen.rzlgame.rzl.Components.BossComponent;
+import javafx.animation.PauseTransition;
+import javafx.scene.effect.ColorAdjust;
 import javafx.util.Duration;
 
 public class BossAnimationComponent extends Component {
 
     private AnimatedTexture texture;
     private AnimationChannel bossAttack, bossWalk;
+    private boolean isBlinking = false;
 
     public BossAnimationComponent() {
 
@@ -34,6 +37,7 @@ public class BossAnimationComponent extends Component {
         );
 
         texture = new AnimatedTexture(bossWalk);
+        texture.loop();
     }
 
     @Override
@@ -53,6 +57,26 @@ public class BossAnimationComponent extends Component {
             texture.setScaleX(-1);
             texture.setTranslateX(-70);
         }
+    }
+
+    public void blinkRed() {
+        if (isBlinking)
+            return;
+
+        isBlinking = true;
+
+        ColorAdjust redEffect = new ColorAdjust();
+        redEffect.setHue(-0.45);
+        redEffect.setSaturation(0.5);
+        redEffect.setBrightness(0.1);
+        texture.setEffect(redEffect);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(0.15));
+        pause.setOnFinished(e -> {
+            texture.setEffect(null);
+            isBlinking = false;
+        });
+        pause.play();
     }
 
     public void playAttack() {

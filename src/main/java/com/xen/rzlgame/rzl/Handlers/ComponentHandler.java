@@ -24,7 +24,7 @@ public class ComponentHandler {
         physics.addCollisionHandler(new BossAttackPlayerCollisionHandler());
         physics.addCollisionHandler(new PlayerEnemyCollisionHandler());
         physics.addCollisionHandler(new PlayerAttackEnemyCollisionHandler());
-        physics.setGravity(0, 1200);
+        physics.setGravity(0, 1000);
     }
 
     public static void linkBossComponents(Entity player, Entity boss) {

@@ -2,6 +2,7 @@ package com.xen.rzlgame.rzl.Handlers.Collisions;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.physics.CollisionHandler;
+import com.xen.rzlgame.rzl.Components.Animations.BossAnimationComponent;
 import com.xen.rzlgame.rzl.Components.AttackComponent;
 import com.xen.rzlgame.rzl.Components.BossComponent;
 import com.xen.rzlgame.rzl.Factories.EntityType;
@@ -22,5 +23,6 @@ public class PlayerAttackBossCollisionHandler extends CollisionHandler {
                         .getComponent(AttackComponent.class)
                         .getPlayerDamage()
         );
+        boss.getComponent(BossAnimationComponent.class).blinkRed();
     }
 }

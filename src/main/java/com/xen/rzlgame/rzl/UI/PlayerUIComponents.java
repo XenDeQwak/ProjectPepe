@@ -2,6 +2,7 @@ package com.xen.rzlgame.rzl.UI;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.xen.rzlgame.rzl.Components.PlayerComponent;
+import com.xen.rzlgame.rzl.Factories.EntityType;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 

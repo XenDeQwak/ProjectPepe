@@ -5,11 +5,12 @@ import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
+import com.almasb.fxgl.physics.BoundingShape;
+import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
+import com.xen.rzlgame.rzl.Components.Animations.NPCAnimationComponent;
 import com.xen.rzlgame.rzl.Components.NpcComponent;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.entityBuilder;
 
@@ -21,13 +22,14 @@ public class NPCFactory implements EntityFactory {
         PhysicsComponent pc = new PhysicsComponent();
         pc.setBodyType(BodyType.STATIC);
 
-        return entityBuilder()
+        return entityBuilder(data)
                 .type(EntityType.NPC)
-                .at(300, 475)
+                .at(300, 465)
                 .with(pc)
-                .viewWithBBox(new Rectangle(25, 25, Color.GREEN))
-                .collidable()
                 .with(new NpcComponent("Maria Clara"))
+                .with(new NPCAnimationComponent())
+                .bbox(new HitBox(BoundingShape.box(20, 55)))
+                .collidable()
                 .buildAndAttach();
     }
 
@@ -39,10 +41,11 @@ public class NPCFactory implements EntityFactory {
 
         return entityBuilder()
                 .type(EntityType.NPC)
-                .at(200, 475)
+                .at(150, 450)
                 .with(pc)
                 .with(new NpcComponent("Elias"))
-                .viewWithBBox(new Rectangle(25, 25, Color.YELLOW))
+                .with(new NPCAnimationComponent())
+                .bbox(new HitBox(BoundingShape.box(20, 75)))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
     }

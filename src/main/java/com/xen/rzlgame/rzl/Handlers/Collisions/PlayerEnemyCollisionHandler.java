@@ -14,13 +14,14 @@ public class PlayerEnemyCollisionHandler extends CollisionHandler {
 
     @Override
     protected void onCollisionBegin(Entity player, Entity enemy) {
-//        player.getComponent(PlayerComponent.class).setCurrentHealth(
-//                player
-//                        .getComponent(PlayerComponent.class)
-//                        .getCurrentHealth() -
-//                enemy
-//                        .getComponent(MinionComponent.class)
-//                        .getOnTouchDmg()
-//        );
+        if(player.getComponent(PlayerComponent.class).isCanParry()) return;
+        player.getComponent(PlayerComponent.class).setCurrentHealth(
+                player
+                        .getComponent(PlayerComponent.class)
+                        .getCurrentHealth() -
+                enemy
+                        .getComponent(MinionComponent.class)
+                        .getOnTouchDmg()
+        );
     }
 }

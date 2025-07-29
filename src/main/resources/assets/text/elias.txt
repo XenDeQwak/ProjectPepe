@@ -1,0 +1,8 @@
+1.name = Elias
+2.name = Ibarra
+
+1: Ibarra...
+1: Alam mo na dapat ang iyong gawin.
+1: Wakasan mo na ang buhay ni Padre Salvi
+2: Elias... 'di ko bibiguin ang misyon ko.
+2: Ako mismo ang papaslang kay Salvi. Hindi ko na hahayaang manipulahin niya tayo!

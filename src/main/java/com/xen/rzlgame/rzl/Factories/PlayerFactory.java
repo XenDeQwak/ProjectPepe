@@ -26,7 +26,7 @@ public class PlayerFactory implements EntityFactory {
 
         return entityBuilder()
                 .type(EntityType.PLAYER)
-                .at(300, 450)
+                .at(400, 500)
                 .with(pc)
                 .bbox(new HitBox(BoundingShape.box(30, 33)))
                 .with(new PlayerAnimationComponent())
@@ -44,6 +44,5 @@ public class PlayerFactory implements EntityFactory {
                 .with(new AttackComponent())
                 .collidable()
                 .build();
-
     }
 }

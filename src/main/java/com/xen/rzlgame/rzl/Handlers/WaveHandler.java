@@ -50,14 +50,14 @@ public class WaveHandler {
             FXGL.runOnce(() -> {
                 Entity minion = FXGL.spawn("minion", spawnNearPlayer());
                 minion.getComponent(MinionComponent.class).setPlayer(player);
-            }, Duration.seconds(i + 1D));
+            }, Duration.seconds(i + 3D));
         }
         FXGL.runOnce(() -> waveIsSpawning = false, Duration.seconds(count));
     }
 
     private Point2D spawnNearPlayer() {
-        int ring = 1;
-        int posInRing = 1 % 8;
+        int ring = 5;
+        int posInRing = ring % 8;
 
         double angle = (2 * Math.PI * posInRing) / 8;
         double radius = (double) 20 + (ring * 20);

@@ -1,19 +1,18 @@
 package com.xen.rzlgame.rzl.Components;
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
-import com.xen.rzlgame.rzl.Components.Animations.MinionAnimationComponent;
 import javafx.geometry.Point2D;
 
 public class MinionComponent extends Component {
 
     private Entity player;
-    private int onTouchDmg = 10;
+    private int onTouchDmg = 5;
     private int currentHealth = 20;
 
     public void followPlayer() {
-        entity.getComponent(MinionAnimationComponent.class).loopWalk();
         double dx = player.getX() - entity.getX();
         double vx = Math.signum(dx) * 150;
         double vy = entity.getComponent(PhysicsComponent.class).getLinearVelocity().getY();
@@ -21,7 +20,15 @@ public class MinionComponent extends Component {
     }
 
     public void onDeath() {
-        if (currentHealth <= 0) entity.removeFromWorld();
+        if (currentHealth <= 0) {
+            entity.removeFromWorld();
+            FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("minion_death.mp3"));
+        }
+    }
+
+    public boolean isInRange() {
+        double distance = entity.getCenter().distance(player.getCenter());
+        return distance <= 50;
     }
 
     @Override

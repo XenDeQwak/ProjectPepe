@@ -1,6 +1,7 @@
 package com.xen.rzlgame.rzl.UI;
 
 import com.almasb.fxgl.dsl.FXGL;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -15,9 +16,10 @@ public class WaveUIComponents {
     public WaveUIComponents(WaveHandler wave) {
         this.wave = wave;
         waveCount = new Text();
-        waveCount.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        waveCount.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+        waveCount.setFill(Color.WHITE);
         waveCount.setX(FXGL.getAppWidth() / 2.0);
-        waveCount.setY(30);
+        waveCount.setY(50);
         FXGL.getGameScene().addUINode(waveCount);
         updateWave();
     }

@@ -26,12 +26,13 @@ public class BossComponent extends Component {
         FXGL.runOnce(()-> {
             bossAtk = FXGL.spawn("bossAttackA");
             bossAtk.addComponent(new BossFollowComponent(entity, player));
+            FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("smash.mp3"));
             FXGL.runOnce(bossAtk::removeFromWorld, Duration.seconds(1));
         }, Duration.seconds(0.6));
 
         entity.getComponent(BossAnimationComponent.class).playAttack();
         FXGL.runOnce(() -> {
-            if (entity.isActive()) entity.getComponent(BossAnimationComponent.class).loopWalk();
+            if (entity != null && entity.isActive()) entity.getComponent(BossAnimationComponent.class).loopWalk();
         }, Duration.seconds(2));
         FXGL.runOnce(() -> canAttack = true, Duration.seconds(3));
     }
@@ -40,6 +41,7 @@ public class BossComponent extends Component {
         if (currentHealth <= 0) {
             entity.removeFromWorld();
             bossUI.healthBarGone();
+            FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("padre_death.mp3"));
         }
     }
 
